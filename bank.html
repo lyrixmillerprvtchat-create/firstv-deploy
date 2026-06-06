@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1st Trust Bank — Global Asset Portal</title>
+    <style>
+        :root {
+            --bg-deep: #060608;
+            --panel-bg: #0d0d11;
+            --accent-gold: #c5a059;
+            --accent-green: #00e65b;
+            --accent-blue: #2563eb;
+            --border-color: #1e1e24;
+            --text-main: #ffffff;
+            --text-muted: #71717a;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Nav Header - Entirely Clean, No Public Admin Links */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 40px;
+            background: #0d0d11;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            user-select: none;
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        /* Container View Tracking */
+        .view-section {
+            display: none;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        /* Structural Grid Panels */
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+            min-height: 65vh;
+        }
+
+        .hero-text h1 {
+            font-size: 54px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin: 0 0 24px 0;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0 0 32px 0;
+        }
+
+        .panel-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+        }
+
+        /* Form styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            box-sizing: border-box;
+            background: var(--bg-deep);
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        /* Standardized Bold Interface Buttons */
+        .btn-bold {
+            width: 100%;
+            background: var(--accent-gold);
+            color: #000;
+            border: none;
+            padding: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 5 Essential Dashboard Action Grid Buttons */
+        .action-hub {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .hub-btn {
+            background: #16161e;
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 14px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            text-transform: uppercase;
+          letter-spacing: 0.5px;
+            transition: all 0.2s;
+        }
+
+        .hub-btn:hover {
+            border-color: var(--accent-gold);
+            background: #1c1c27;
+        }
+
+        /* Admin Interactive Framework Grid */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 30px;
+        }
+
+        .ledger-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .ledger-table th, .ledger-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        .ledger-table th {
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .bg-pending { background: #3b2e11; color: #f59e0b; }
+        .bg-verified { background: #143520; color: var(--accent-green); }
+
+        .control-input-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo" id="secret-logo-trigger" onclick="handleSecretClick()">1ST TRUST<span>BANK</span></div>
+        <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">SECURE NODE</div>
+    </nav>
+
+    <section id="hero-view" class="view-section active">
+        <div class="hero-layout">
+            <div class="hero-text">
+                <h1>Private Liquidity. Global Settlement.</h1>
+                <p>Engineered for high-net-worth liquidity distribution, secure capital growth, and absolute multi-asset protection. Open an institutional account instantly.</p>
+                <button class="btn-bold" style="width: auto; padding: 18px 48px;" onclick="switchView('signup-view')">Open Private Account</button>
+            </div>
+            <div class="panel-card" style="border-left: 4px solid var(--accent-gold);">
+                <h4 style="margin: 0 0 10px 0; color: var(--accent-gold); font-size: 16px; text-transform: uppercase;">Capital Deployment Announcement</h4>
+                <p style="margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.6;">Our native ledger pipeline guarantees absolute compliance, multi-country assignment allocations, and real-time intra-network clearance loops globally.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="signup-view" class="view-section">
+        <div style="max-width: 520px; margin: 0 auto;">
+            <div class="panel-card">
+                <h2 style="margin-top:0; font-size: 24px;">Account Onboarding</h2>
+                
+                <div class="form-group">
+                    <label>Country of Origin Jurisdiction</label>
+                    <select id="reg-country" class="form-control">
+                        </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Full Corporate / Individual Name</label>
+                    <input type="text" id="reg-name" class="form-control" placeholder="e.g., Bauer Davis Capital">
+                </div>
+
+                <div class="form-group">
+                    <label>Secure Communication Email Address</label>
+                    <input type="email" id="reg-email" class="form-control" placeholder="e.g., secure@bdventures.com">
+                </div>
+
+                <div class="form-group">
+                    <label>System Phone ID Number</label>
+                    <input type="text" id="reg-phone" class="form-control" placeholder="e.g., 08012345678">
+                </div>
+
+                <div class="form-group">
+                    <label>Initial Asset Allocation ($)</label>
+                    <input type="number" id="reg-deposit" class="form-control" value="1500000">
+                </div>
+                <p style="margin:5px 0 0 0; color: var(--text-muted);">Operator Authority: <span style="color:#fff;">08059422423</span></p>
+            </div>
+            <button class="hub-btn" style="border-color:#ef4444; color:#ef4444;" onclick="switchView('hero-view')">Close Root Desk</button>
+        </div>
+
+        <div class="admin-grid">
+            <div>
+                <div class="panel-card" style="margin-bottom: 30px;">
+                    <h3 style="margin-top:0; text-transform:uppercase; font-size:16px; color: var(--accent-gold);">Global User Accounts Database</h3>
+                    <div style="overflow-x:auto;">
+                        <table class="ledger-table" id="admin-users-table">
+                            <thead>
+                                <tr>
+                                    <th>Client Title / Jurisdiction</th>
+                                    <th>Phone Target</th>
+                                    <th>Balance</th>
+                                    <th>Verification</th>
+                                    <th>Capital Balance Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="panel-card">
+                    <h3 style="margin-top:0; text-transform:uppercase; font-size:16px;">Global Network Master Ledger Logs</h3>
+                    <table class="ledger-table" id="admin-master-history">
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th>Details</th>
+                                <th>Volume</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Global Array Listing for Programmatic Onboarding
+      const countryList = ["Afghanistan","Albania","Algeria","Andorra","Angola","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Rep","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts","Saint Lucia","Samoa","San Marino","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+
+        // Volatile Database Master Storage Framework
+        let userDatabase = [
+            { name: "Bauer Davis Capital", email: "bdavis@ventures.com", phone: "08059422423", balance: 5500000, country: "United Kingdom", registeredAt: Date.now() - 2000000, history: [] },
+            { name: "Sasha Vance Global", email: "vance@sasha.io", phone: "08011112222", balance: 450000, country: "Canada", registeredAt: Date.now(), history: [] }
+        ];
+
+        let masterGlobalLogs = [
+            { account: "Bauer Davis Capital", action: "System Initialization", amount: "+$5,500,000" }
+        ];
+
+        let logoClicks = 0;
+        let logoTimer;
+        let activeUserSession = null;
+
+        // Populate Country Dropdowns on Boot Execution
+        window.onload = function() {
+            const selectEl = document.getElementById('reg-country');
+            countryList.forEach(c => {
+                let opt = document.createElement('option');
+                opt.value = c;
+                opt.innerText = c;
+                if(c === "Nigeria") opt.selected = true;
+                selectEl.appendChild(opt);
+            });
+            
+            // Background clock thread checking time-lapse states every 1 second
+            setInterval(updateVerificationEngineTimers, 1000);
+        };
+
+        // Hidden Gesture Action Manager Engine
+        function handleSecretClick() {
+            logoClicks++;
+            clearTimeout(logoTimer);
+            if (logoClicks >= 3) {
+                logoClicks = 0;
+                switchView('hidden-admin-login');
+            } else {
+                logoTimer = setTimeout(() => { logoClicks = 0; }, 1200);
+            }
+        }
+
+        // View Management Engine Handler 
+        function switchView(viewId) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+
+            if (viewId === 'admin-dashboard-view') {
+              renderAdminControlDesk();
+            }
+        }
+
+        // Admin Security Authenticator
+        function verifyAdminGateway() {
+            const u = document.getElementById('admin-user-input').value.trim();
+            const p = document.getElementById('admin-pass-input').value.trim();
+
+            if (u === "08059422423" && p === "08059422423") {
+                document.getElementById('admin-user-input').value = "";
+                document.getElementById('admin-pass-input').value = "";
+                switchView('admin-dashboard-view');
+            } else {
+                alert("GATEWAY ERROR: Unauthorized Access Fingerprint Matrix.");
+                switchView('hero-view');
+            }
+        }
+
+        // Public Account Registry Onboarding Form Handler
+        function executeAccountOnboarding() {
+            const country = document.getElementById('reg-country').value;
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const deposit = parseFloat(document.getElementById('reg-deposit').value);
+
+            if (!name  !email  !phone || isNaN(deposit)) {
+                alert("VALIDATION FAULT: Complete all onboarding parameters.");
+                return;
+            }
+
+            if (userDatabase.find(u => u.phone === phone)) {
+                alert("REGISTRY ERROR: Phone index target already bound inside local records.");
+                return;
+            }
+
+            let newAccount = {
+                name, email, phone, balance: deposit, country,
+                registeredAt: Date.now(), // Sets initial activation point timestamp
+                history: [{ time: new Date().toLocaleTimeString(), text: "Vault initialized", amount: +$${deposit.toLocaleString()} }]
+            };
+
+            userDatabase.push(newAccount);
+            masterGlobalLogs.push({ account: name, action: "Account Registered", amount: +$${deposit.toLocaleString()} });
+
+            activeUserSession = newAccount;
+            loadUserDashboardSession();
+        }
+
+        // Load Active Session Values to Frontend UI
+        function loadUserDashboardSession() {
+            if(!activeUserSession) return;
+            document.getElementById('user-dash-title').innerText = [ PANEL: ${activeUserSession.name.toUpperCase()} ];
+            document.getElementById('user-dash-country').innerText = activeUserSession.country;
+            document.getElementById('user-dash-balance').innerText = activeUserSession.balance.toLocaleString(undefined, {minimumFractionDigits: 2});
+            
+            // Render user localized transaction history 
+            const body = document.querySelector("#user-history-table tbody");
+            body.innerHTML = "";
+            activeUserSession.history.slice().reverse().forEach(h => {
+                body.innerHTML += `<tr>
+                    <td><small style="color:var(--text-muted);">${h.time}</small></td>
+                    <td>${h.text}</td>
+                    <td style="color:var(--accent-green); font-weight:600;">${h.amount}</td>
+                </tr>`;
+            });
+
+            switchView('user-dashboard-view');
+        }
+
+        // Live Dynamic Verification Time-Lapse Counting Thread Engine
+        function updateVerificationEngineTimers() {
+            // 30 Minutes conversion to milliseconds = 1,800,000 ms
+            const lapseBound = 30 * 60 * 1000; 
+
+            if (activeUserSession) {
+                const elapsed = Date.now() - activeUserSession.registeredAt;
+                const statusBox = document.getElementById('verification-status-box');
+                
+                if (elapsed >= lapseBound) {
+                    statusBox.innerHTML = <span class="badge bg-verified">✓ INTERNAL AUDIT STATUS: FULLY VERIFIED SECURE ACCOUNT</span>;
+                } else {
+                    const remainingMs = lapseBound - elapsed;
+                    const mins = Math.
+                      floor(remainingMs / 60 / 1000);
+                    const secs = Math.floor((remainingMs % (60 * 1000)) / 1000);
+                    statusBox.innerHTML = <span class="badge bg-pending">⌛ VERIFICATION PENDING LAPSE: ACCOUNT ACTIVE IN ${mins}m ${secs}s</span>;
+                }
+            }
+        }
+
+        // 5 Hub Buttons Generic Mock Click Feedback Handler
+        function triggerUserAction(actionTitle) {
+            alert(`SYSTEM NOTICE: [ ${actionTitle} ] panel triggered. Execution layer ready for VPS ledger attachment query loops.`);
+        }
+
+        // Render Administrative Internal Auditing Control Workspace Engine
+        function renderAdminControlDesk() {
+            const tbody = document.querySelector("#admin-users-table tbody");
+            tbody.innerHTML = "";
+
+            userDatabase.forEach((user, index) => {
+                const elapsed = Date.now() - user.registeredAt;
+                const isVerified = elapsed >= (30 * 60 * 1000);
+                const statusBadge = isVerified ? 
+                    <span class="badge bg-verified">Verified</span> : 
+                    <span class="badge bg-pending">Pending</span>;
+
+                tbody.innerHTML += `<tr>
+                    <td><strong>${user.name}</strong><br><small style="color:var(--text-muted);">${user.country} | ${user.email}</small></td>
+                    <td><code>${user.phone}</code></td>
+                    <td style="color:var(--accent-green); font-weight:700;">$${user.balance.toLocaleString()}</td>
+                    <td>${statusBadge}</td>
+                    <td>
+                        <div class="control-input-group">
+                            <input type="number" id="amt-mod-${index}" style="width:90px; background:#000; color:#fff; border:1px solid #333; padding:4px;" placeholder="Value">
+                            <button class="hub-btn" style="padding:4px 8px; background:#1c3d27;" onclick="adjustUserBalance(${index}, 'add')">+</button>
+                            <button class="hub-btn" style="padding:4px 8px; background:#4c1d1d;" onclick="adjustUserBalance(${index}, 'sub')">-</button>
+                        </div>
+                    </td>
+                </tr>`;
+            });
+
+            // Master global operation system ledger logs updates
+            const logB = document.querySelector("#admin-master-history tbody");
+            logB.innerHTML = "";
+            masterGlobalLogs.slice().reverse().forEach(l => {
+                logB.innerHTML += `<tr>
+                    <td><small><strong>${l.account}</strong></small></td>
+                    <td><small style="color:var(--text-muted);">${l.action}</small></td>
+                    <td style="font-weight:600;">${l.amount}</td>
+                </tr>`;
+            });
+        }
+
+        // Administrative Master Balance Addition / Subtraction Modifier Function Engine
+        function adjustUserBalance(userIndex, operationsMode) {
+            const inputField = document.getElementById(`amt-mod-${userIndex}`);
+            const adjustmentValue = parseFloat(inputField.value);
+
+            if (isNaN(adjustmentValue) || adjustmentValue <= 0) {
+                alert("DESK FAULT: Provide an accurate transaction volume amount value.");
+                return;
+            }
+
+            let selectedUser = userDatabase[userIndex];
+            const timestamp = new Date().toLocaleTimeString();
+
+            if (operationsMode === 'add') {
+                selectedUser.balance += adjustmentValue;
+                selectedUser.history.push({ time: timestamp, text: "Administrative Strategic Credit Adjustment", amount: +$${adjustmentValue.toLocaleString()} });
+                masterGlobalLogs.push({ account: selectedUser.name, action: "Admin Credit Overlay Adjust", amount: +$${adjustmentValue.toLocaleString()} });
+            } else if (operationsMode === 'sub') {
+                if(adjustmentValue > selectedUser.balance) {
+                    alert("DESK OVERFLOW ERROR: Cannot deduct past zero tier allocations.");
+                    return;
+                }
+              selectedUser.balance -= adjustmentValue;
+                selectedUser.history.push({ time: timestamp, text: "Administrative Debit Adjustment Recovery", amount: -$${adjustmentValue.toLocaleString()} });
+                masterGlobalLogs.push({ account: selectedUser.name, action: "Admin Debit Overlay Draw", amount: -$${adjustmentValue.toLocaleString()} });
+            }
+
+            inputField.value = "";
+            renderAdminControlDesk(); // Instantly update view fields inside master panel layout rows
+            alert(`BALANCE OVERLAY APPLIED: Successfully adjusted ledger reserves for ${selectedUser.name}`);
+        }
+    </script>
+</body>
+</html>
