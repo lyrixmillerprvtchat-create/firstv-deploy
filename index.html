@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>1st Trust Bank | Secure. Reliable. Global.</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+.bank-green { background-color: #064e3b; } /* Deep professional green */
+.text-bank { color: #064e3b; }
+.btn-gold { background-color: #b45309; }
+</style>
+</head>
+<body class="bg-slate-50 font-sans">
+
+<!-- Header / Branding -->
+<header class="bank-green p-8 text-white shadow-lg">
+<h1 class="text-4xl font-bold text-center">1st TRUST BANK</h1>
+<p class="text-center mt-2 opacity-90">Secure. Reliable. Global.</p>
+</header>
+
+<!-- Main Content -->
+<main id="app" class="max-w-xl mx-auto mt-10 p-8 bg-white rounded-2xl shadow-xl border border-slate-200">
+
+<!-- View: Login -->
+<div id="login-view">
+<h2 class="text-2xl font-bold mb-6 text-slate-800">Sign In</h2>
+<input type="text" id="user-id" placeholder="Username / Account ID" class="w-full p-4 mb-4 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-800 outline-none">
+<input type="password" id="pass-id" placeholder="Password" class="w-full p-4 mb-6 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-800 outline-none">
+<button onclick="login()" class="w-full bank-green text-white p-4 rounded-lg font-bold text-lg hover:bg-green-900 transition">SECURE LOGIN</button>
+<p class="mt-6 text-center text-slate-600">New here? <span class="text-bank font-bold cursor-pointer underline" onclick="showSignup()">Open an Account</span></p>
+</div>
+
+<!-- View: Registration (Hidden by default) -->
+<div id="signup-view" class="hidden">
+<h2 class="text-2xl font-bold mb-2 text-slate-800">Account Application</h2>
+<p class="mb-6 text-slate-500 text-sm">Complete your details to generate your instant account number.</p>
+
+<input type="text" id="full-name" placeholder="Full Legal Name" class="w-full p-3 mb-3 border rounded">
+<input type="email" id="email" placeholder="Email Address" class="w-full p-3 mb-3 border rounded">
+<input type="tel" id="phone" placeholder="Phone Number" class="w-full p-3 mb-3 border rounded">
+
+<select id="country" class="w-full p-3 mb-3 border rounded bg-white">
+<option value="">Select Country (A-Z)</option>
+<!-- Add full list from A to Z -->
+</select>
+
+<label class="block text-sm font-medium mb-1">Upload Passport / ID</label>
+<input type="file" class="w-full mb-6 p-2 border rounded">
+
+<button onclick="register()" class="w-full bank-green text-white p-4 rounded-lg font-bold">SUBMIT APPLICATION</button>
+<p class="mt-4 text-center text-xs text-slate-400">By submitting, you agree to 1st Trust Bank terms.</p>
+</div>
+</main>
+
+<script>
+function showSignup() {
+document.getElementById('login-view').classList.add('hidden');
+document.getElementById('signup-view').classList.remove('hidden');
+}
+
+function register() {
+alert("Application submitted successfully. Please verify your account via email to activate your account number.");
+window.location.reload();
+}
+</script>
+</body>
+</html>
