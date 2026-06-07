@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+body { background: #0f172a; color: white; font-family: sans-serif; }
+.glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+</style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+
+<div class="glass-card p-8 rounded-3xl w-full max-w-sm text-center shadow-2xl">
+<h1 class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-1">1st Trust Bank</h1>
+<h2 class="text-3xl font-extrabold mb-6 leading-tight">Simple, Fast<br>Online Banking</h2>
+
+<div class="bg-slate-900 p-6 rounded-2xl mb-6 border border-slate-700">
+<p class="text-xs text-slate-400 uppercase mb-1">Checking Account</p>
+<p class="text-xl font-mono font-bold text-white mb-4">1T-902-8842</p>
+<div class="flex justify-between items-center text-xs">
+<span class="text-emerald-400">● Active Connection</span>
+<span class="text-slate-500">2026</span>
+</div>
+</div>
+
+<button onclick="window.location.href='#login'" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-3 rounded-xl mb-3 transition">LOG IN TO ACCOUNT</button>
+<button onclick="window.location.href='#apply'" class="w-full border border-slate-600 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition">OPEN AN ACCOUNT</button>
+</div>
+
+<div id="login" class="hidden absolute top-0 left-0 w-full bg-slate-900 p-10">
+</div>
+
+<script>
+const sb = supabase.createClient('YOUR_URL', 'YOUR_KEY');
+
+// Use this function for your buttons to toggle sections
+function showSection(id) {
+document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+}
+</script>
+</body>
+</html>
