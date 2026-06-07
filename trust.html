@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>1trust bank - Premium Online Banking</title>
+ <script src="https://cdn.tailwindcss.com"></script>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght=500;600;700&display=swap');
+ 
+ body {
+ font-family: 'Plus Jakarta Sans', sans-serif;
+ background-color: #060913;
+ overflow-x: hidden;
+ }
+ .font-mono-bank {
+ font-family: 'JetBrains+Mono', monospace;
+ }
+ .glass-card {
+ background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.4) 100%);
+ backdrop-filter: blur(16px);
+ -webkit-backdrop-filter: blur(16px);
+ }
+ .fade-in-up {
+ animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+ }
+ @keyframes fadeInUp {
+ from { opacity: 0; transform: translateY(20px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+ </style>
+</head>
+<body class="text-slate-200 min-h-screen flex flex-col justify-between antialiased selection:bg-emerald-500/30">
+
+ <!-- BACKGROUND AMBIENT GLOWS -->
+ <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] pointer-events-none overflow-hidden z-0">
+ <div class="absolute top-[-20%] left-[10%] w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[140px]"></div>
+ <div class="absolute top-[-10%] right-[5%] w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px]"></div>
+ </div>
+
+ <!-- MAIN APP HEADER -->
+ <header class="border-b border-slate-900/80 bg-[#090d16]/80 backdrop-blur-md px-4 py-4 sticky top-0 z-50 shadow-lg">
+ <div class="max-w-md mx-auto flex items-center justify-between">
+ <div class="flex items-center space-x-3 cursor-pointer group" onclick="goToHome()">
+ <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 transition-transform group-hover:scale-105">
+ <span class="text-slate-950 font-extrabold text-lg tracking-tighter">1T</span>
+ </div>
+ <div>
+ <h1 class="text-xl font-extrabold tracking-tight text-white leading-none">1trust bank</h1>
+ <span class="text-[10px] text-emerald-400 font-bold uppercase tracking-widest block pt-0.5">Online Banking</span>
+ </div>
+ </div>
+ 
+ <div class="flex items-center space-x-2">
+ <div id="sessionStatus" class="hidden items-center space-x-1.5 bg-emerald-950/40 border border-emerald-500/30 px-3 py-1 rounded-full">
+ <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+ <span class="text-[10px] text-emerald-400 font-bold tracking-wider uppercase">Secured</span>
+ </div>
+ <button id="logoutBtn" onclick="logout()" class="hidden text-xs bg-slate-900 hover:bg-slate-800 text-slate-300 px-3 py-2 rounded-xl border border-slate-800 transition-all font-semibold shadow-sm">
+ Log Out
+ </button>
+ </div>
+ </div>
+ </header>
+
+ <!-- CONTENT DISPLAY FRAMES -->
+ <main class="flex-grow max-w-md w-full mx-auto p-4 flex flex-col justify-start z-10 relative">
+
+ <!-- BRAND LANDING PAGE VIEW -->
+ <section id="landingPage" class="w-full my-auto py-6 space-y-8 fade-in-up">
+ <div class="space-y-4 text-center">
+ <div class="inline-flex items-center space-x-2 bg-slate-900/60 border border-slate-800 px-3 py-1 rounded-full text-xs text-slate-400">
+ <span class="text-emerald-400 font-bold">●</span>
+ <span>Global Personal & Business Accounts</span>
+ </div>
+ <h2 class="text-4xl font-extrabold tracking-tight text-white leading-none">Simple, Fast <br><span class="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Online Banking</span></h2>
+ <p class="text-sm text-slate-400 px-4 leading-relaxed">Manage your money from anywhere in the world with our premium dashboard and real-time transaction tracking.</p>
+ </div>
+
+ <!-- Card Design Block -->
+ <div class="glass-card border border-slate-800 p-6 rounded-3xl shadow-2xl space-y-6 relative overflow-hidden group">
+ <div class="absolute -right-12 -bottom-12 w-40 h-40 bg-emerald-500/10 rounded-full blur-2xl transition-opacity group-hover:opacity-80"></div>
+ 
+ <div class="flex justify-between items-start">
+ <div class="space-y-1">
+ <span class="text-[10px] uppercase font-bold tracking-widest text-slate-500">Checking Account</span>
+ <div class="text-2xl font-mono-bank font-bold text-white tracking-wide">1T-902-8842</div>
+ </div>
+ <div class="w-10 h-7 bg-slate-800/80 rounded-lg border border-slate-700 flex items-center justify-center text-slate-500 text-lg"> </div>
+ </div>
+
+ <div class="pt-4 flex justify-between items-end">
+ <div>
+ <span class="text-[9px] uppercase font-bold tracking-widest text-slate-500 block mb-0.5">Status</span>
+ <span class="text-xs text-emerald-400 font-bold flex items-center gap-1.5 bg-emerald-950/30 px-2 py-0.5 rounded-md border border-emerald-500/10 w-fit">
+ <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+ Active Connection
+ </span>
+ </div>
+ <div class="text-right font-mono-bank font-bold text-sm text-slate-400">2026</div>
+ </div>
+ </div>
+
+ <div class="space-y-3">
+ <button onclick="enterAuth('login')" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-bold p-4 rounded-2xl transition-all text-sm uppercase tracking-wider shadow-xl shadow-emerald-500/10 transform active:scale-[0.99]">
+ Log In to Account
+ </button>
+ <button onclick="enterAuth('register')" class="w-full bg-slate-900 hover:bg-slate-800 text-white border border-slate-800 font-bold p-4 rounded-2xl transition-all text-sm uppercase tracking-wider shadow-sm">
+ Open an Account
+ </button>
+ </div>
+ </section>
+
+ <!-- SECURE AUTHENTICATION CONTAINER -->
+ <section id="authWindow" class="w-full my-auto py-4 space-y-6 hidden fade-in-up">
+ <div class="text-center space-y-2">
+ <h2 id="authHeading" class="text-2xl font-extrabold tracking-tight text-white">Log In</h2>
+ <p class="text-xs text-slate-400">Enter your details to log in to your account dashboard.</p>
+ </div>
+
+ <!-- Switch Tab Layout -->
+ <div class="flex bg-[#0d1324] p-1.5 rounded-2xl border border-slate-800/80">
+ <button id="tabLogin" onclick="switchAuthTab('login')" class="w-1/2 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl transition-all">Log In</button>
+ <button id="tabRegister" onclick="switchAuthTab('register')" class="w-1/2 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl transition-all">Register</button>
+ </div>
+
+ <!-- Login Form -->
+ <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+ <div>
+ <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Account Number or Phone</label>
+ <input type="text" id="loginUser" required class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3.5 text-sm focus:outline-none focus:border-emerald-500 text-white placeholder-slate-700 transition-all font-mono-bank" placeholder="Enter Account or Phone">
+ </div>
+ <div>
+ <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Password / Pin</label>
+ <input type="password" id="loginPass" required class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3.5 text-sm focus:outline-none focus:border-emerald-500 text-white placeholder-slate-700 transition-all" placeholder="••••••••">
+ </div>
+ <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold p-3.5 rounded-xl transition-all text-xs uppercase tracking-widest shadow-lg shadow-emerald-500/10 mt-2">
+ Log In
+ </button>
+ </form>
+
+ <!-- Registration Form -->
+ <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-4 hidden">
+ <div class="grid grid-cols-2 gap-3">
+ <div>
+ <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">First Name</label>
+ <input type="text" id="regFirst" required class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500 text-white">
+ </div>
+ <div>
+ <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Last Name</label>
+ <input type="text" id="regLast" required class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500 text-white">
+ </div>
+ </div>
+ <div class="grid grid-cols-2 gap-3">
+ <div>
+ <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Email Address</label>
+ <input type="email" id="regEmail" required class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500 text-white">
+ </div>
+ <div>
+ <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Phone Number</label>
+ <input type="tel" id="regPhone" required class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500 text-white font-mono-bank" placeholder="+1...">
+ </div>
+ </div>
+
+ <!-- Global Country Selection Module (Alphabetical A-Z) -->
+ <div>
+ <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Country</label>
+ <select id="regCountry" required class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500 text-white font-medium">
+ <option value="" disabled selected>Select your country</option>
+ </select>
+ </div>
+
+ <div>
+ <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Home Address</label>
+ <input type="text" id="regAddress" required class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500 text-white">
+ </div>
+ 
+ <!-- Identification Upload -->
+ <div class="border border-slate-800 bg-[#090d16] p-4 rounded-2xl space-y-3.5 shadow-inner">
+ <span class="block text-[10px] font-bold text-emerald-400 tracking-wider uppercase">Identity Verification (KYC)</span>
+ <div>
+ <label class="block text-[11px] font-medium text-slate-400 mb-1">Government ID or Passport (Front)</label>
+ <input type="file" accept="image/*" required class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
+ </div>
+ <div>
+ <label class="block text-[11px] font-medium text-slate-400 mb-1">Clear Selfie Photo</label>
+ <input type="file" accept="image/*" required class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-slate-800 file:text-slate-300 hover:file:bg-slate-700 cursor-pointer">
+ </div>
+ </div>
+
+ <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold p-3.5 rounded-xl transition-all text-xs uppercase tracking-widest">
+ Submit & Register
+ </button>
+ </form>
+ </section>
+
+ <!-- MAIN ONLINE BANKING DASHBOARD -->
+ <section id="dashboardHub" class="w-full space-y-5 hidden pt-2 fade-in-up">
+ <!-- User Info -->
+ <div class="bg-[#090d16]/90 border border-slate-800/80 rounded-2xl p-4 flex items-center justify-between shadow-md">
+ <div>
+ <span class="text-[10px] text-slate-500 block uppercase font-bold tracking-wider">Account Holder</span>
+ <h3 id="dashName" class="text-lg font-bold text-white uppercase tracking-tight">--</h3>
+ </div>
+ <div class="bg-slate-950/60 border border-slate-800 px-3 py-1.5 rounded-xl text-right">
+ <span class="block text-[9px] text-slate-500 uppercase font-bold tracking-widest mb-0.5">Account Number</span>
+ <span id="dashAccountNo" class="text-xs font-mono-bank font-bold text-emerald-400">--</span>
+ </div>
+ </div>
+
+ <!-- Balance Card -->
+ <div class="glass-card border border-slate-800 p-6 rounded-2xl shadow-xl space-y-4 relative overflow-hidden">
+ <div class="flex justify-between items-center">
+ <div>
+ <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Available Balance</span>
+ <div id="dashBalance" class="text-3xl font-extrabold text-white tracking-tight pt-1 font-mono-bank">
+ $0.00
+ </div>
+ </div>
+ <span id="dashCountryBadge" class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Checking</span>
+ </div>
+ </div>
+
+ <!-- Transfer Buttons Section -->
+ <div class="bg-[#090d16]/90 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-md">
+ <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Money Transfer Hub</span>
+ <div class="grid grid-cols-3 gap-3">
+ <button onclick="openTransferModal('Send Money')" class="bg-slate-950/40 border border-slate-850 p-3.5 rounded-xl flex flex-col items-center justify-center space-y-2 hover:border-slate-700 hover:bg-slate-950 transition-all group">
+ <span class="text-emerald-400 text-xl group-hover:scale-110 transition-transform"> </span>
+ <span class="text-xs font-semibold text-slate-300">Send Money</span>
+ </button>
+ <button onclick="openTransferModal('Local Transfer')" class="bg-slate-950/40 border border-slate-850 p-3.5 rounded-xl flex flex-col items-center justify-center space-y-2 hover:border-slate-700 hover:bg-slate-950 transition-all group">
+ <span class="text-slate-400 text-xl group-hover:scale-110 transition-transform">⇄</span>
+ <span class="text-xs font-semibold text-slate-300">Local Bank</span>
+ </button>
+ <button onclick="openTransferModal('International Wire')" class="bg-slate-950/40 border border-slate-850 p-3.5 rounded-xl flex flex-col items-center justify-center space-y-2 hover:border-slate-700 hover:bg-slate-950 transition-all group">
+ <span class="text-slate-400 text-xl group-hover:scale-110 transition-transform"> </span>
+ <span class="text-xs font-semibold text-slate-300">International</span>
+ </button>
+ </div>
+ </div>
+
+ <!-- Account History / Transactions List -->
+ <div class="bg-[#090d16]/90 border border-slate-800 rounded-2xl p-4 space-y-3.5 shadow-md">
+ <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+ <h4 class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Transaction History</h4>
+ <span class="text-[11px] text-emerald-400 hover:underline cursor-pointer font-medium">Download Statement</span>
+ </div>
+ <div id="ledgerLogsBody" class="space-y-2.5">
+ <!-- Dynamic transactions go here -->
+ </div>
+ </div>
+ </section>
+
+ <!-- ADMINISTRATIVE DASHBOARD -->
+ <section id="adminHub" class="w-full space-y-5 hidden pt-2 fade-in-up">
+ <div class="border border-red-950 bg-red-950/10 p-4 rounded-xl flex justify-between items-center">
+ <div>
+ <h3 class="text-sm font-bold text-red-400 tracking-wide uppercase">Admin Dashboard</h3>
+ <p class="text-xs text-slate-400">Manage user balances and view all bank records.</p>
+ </div>
+ <span class="bg-red-900/60 text-red-200 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md border border-red-500/20">Staff Access</span>
+ </div>
+
+ <!-- Change Balance Panel -->
+ <div class="bg-[#090d16]/90 border border-slate-800 rounded-2xl p-4 space-y-4 shadow-md">
+ <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300">Adjust User Balance</h4>
+ 
+ <div class="space-y-3">
+ <div>
+ <label class="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1">Select User Account</label>
+ <select id="adminTargetUser" class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-red-500 font-medium">
+ <!-- Populated with ALL accounts -->
+ </select>
+ </div>
+ 
+ <div class="grid grid-cols-2 gap-3">
+ <div>
+ <label class="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1">Action</label>
+ <select id="adminModType" class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-red-500">
+ <option value="add">Deposit Funds (+)</option>
+ <option value="subtract">Deduct Funds (-)</option>
+ </select>
+ </div>
+ <div>
+ <label class="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1">Amount ($)</label>
+ <input type="number" id="adminModAmount" step="0.01" placeholder="0.00" class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-red-500 font-mono-bank">
+ </div>
+ </div>
+
+ <div>
+ <label class="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1">Transaction Description / Label</label>
+ <input type="text" id="adminModRef" placeholder="e.g., Wire Transfer Deposit" class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-red-500">
+ </div>
+
+ <button onclick="executeBalanceModulation()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold p-3 rounded-xl text-xs uppercase tracking-widest transition-all">
+ Update Balance
+ </button>
+ </div>
+ </div>
+
+ <!-- Master User List Table -->
+ <div class="bg-[#090d16]/90 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-md">
+ <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300">Registered Bank Members</h4>
+ <div class="overflow-x-auto">
+ <table class="w-full text-left text-xs">
+ <thead>
+ <tr class="text-slate-500 border-b border-slate-800 font-bold uppercase tracking-wider text-[10px]">
+ <th class="pb-2">Account No</th>
+ <th class="pb-2">Full Name</th>
+ <th class="pb-2">Country</th>
+ <th class="pb-2 text-right">Balance</th>
+ </tr>
+ </thead>
+ <tbody id="adminUsersTable" class="divide-y divide-slate-800/60 font-mono-bank text-slate-300">
+ <!-- All accounts injected here -->
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </section>
+
+ </main>
+
+ <!-- TRANSFER POPUP MODAL -->
+ <div id="transferModal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 z-50">
+ <div class="bg-[#090d16] border border-slate-800 rounded-2xl w-full max-w-sm p-5 space-y-4 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+ <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
+ <h3 id="modalTitle" class="text-xs font-bold uppercase text-slate-400 tracking-wider">Transfer Money</h3>
+ <button onclick="closeTransferModal()" class="text-slate-400 hover:text-white text-2xl font-light leading-none">&times;</button>
+ </div>
+
+ <div class="space-y-3">
+ <div>
+ <label class="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1">Recipient Account Number</label>
+ <input type="text" id="txAccNo" oninput="simulateNameRecovery()" placeholder="Enter account number" class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm text-white font-mono-bank focus:outline-none focus:border-emerald-500">
+ </div>
+ 
+ <div id="nameRecoveryBox" class="hidden bg-emerald-500/5 border border-emerald-500/20 p-2.5 rounded-xl text-xs text-emerald-400 font-medium">
+ Account Name: <span id="recoveredName" class="font-bold uppercase text-white font-mono-bank"></span>
+ </div>
+
+ <div>
+ <label class="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1">Bank Name</label>
+ <input type="text" id="txBankName" placeholder="e.g., Chase, Barclays, Bank of America" class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
+ </div>
+
+ <div>
+ <label class="block text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1">Amount ($)</label>
+ <input type="number" id="txAmount" placeholder="0.00" class="w-full bg-[#0d1324] border border-slate-800 rounded-xl p-3 text-sm text-emerald-400 font-mono-bank font-bold focus:outline-none focus:border-emerald-500">
+ </div>
+
+ <button onclick="promptTransferConfirmation()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold p-3.5 rounded-xl text-xs uppercase tracking-widest transition-all mt-1">
+ Confirm Transfer
+ </button>
+ </div>
+ </div>
+ </div>
+
+ <!-- ERROR LOCKOUT MODAL -->
+ <div id="processingModal" class="fixed inset-0 bg-black/95 backdrop-blur-xl hidden items-center justify-center p-4 z-50">
+ <div class="bg-[#090d16] border border-amber-500/20 rounded-3xl w-full max-w-sm p-6 space-y-5 text-center shadow-2xl">
+ <!-- Spinner -->
+ <div id="procSpinner" class="mx-auto w-10 h-10 border-2 border-slate-800 border-t-amber-500 rounded-full animate-spin"></div>
+ 
+ <div class="space-y-1.5">
+ <h3 id="procTitle" class="text-lg font-bold text-white tracking-tight">Processing Transfer...</h3>
+ <p id="procMsg" class="text-xs text-slate-400 leading-relaxed">Connecting to the payment network to send funds.</p>
+ </div>
+
+ <!-- Activation Prompt Box -->
+ <div id="procActionPrompt" class="hidden bg-amber-500/5 border border-amber-500/10 p-4 rounded-xl space-y-3.5 text-left">
+ <div class="flex items-center space-x-2 text-amber-400">
+ <span> </span>
+ <span class="text-xs font-bold uppercase tracking-wider">Account Activation Required</span>
+ </div>
+ <p class="text-[11px] text-slate-300 leading-relaxed">
+ This account is currently blocked from sending money outside the bank. Please contact customer support to activate your profile.
+ </p>
+ <a href="mailto:support@1trustbank.com" class="block text-center bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all">
+ Contact Support
+ </a>
+ </div>
+
+ <button id="procCloseBtn" onclick="closeProcessingModal()" class="hidden mx-auto text-xs text-slate-500 hover:text-slate-300 transition-colors underline">Close Window</button>
+ </div>
+ </div>
+
+ <!-- SYSTEM FOOTER -->
+ <footer class="border-t border-slate-900/80 bg-[#04060d] py-5 px-4 text-center text-[9px] text-slate-600 tracking-widest font-bold uppercase">
+ © 2026 1trust bank Financial Corporation. All Rights Reserved.
+ </footer>
+
+ <!-- CENTRAL STATE SYSTEM ARCHITECTURE SCRIPT -->
+ <script>
+ // Alphabetical A-Z Countries Array
+ const countriesArr = [
+ "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua & Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+ "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia & Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi",
+ "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic",
+ "Denmark", "Djibouti", "Dominica", "Dominican Republic",
+ "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia",
+ "Fiji", "Finland", "France",
+ "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana",
+ "Haiti", "Honduras", "Hungary",
+ "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast",
+ "Jamaica", "Japan", "Jordan",
+ "Kazakhstan", "Kenya", "Kiribati", "Korea (North)", "Korea (South)", "Kosovo", "Kuwait", "Kyrgyzstan",
+ "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg",
+ "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar",
+ "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway",
+ "Oman",
+ "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal",
+ "Qatar",
+ "Romania", "Russia", "Rwanda",
+ "Saint Kitts & Nevis", "Saint Lucia", "Samoa", "San Marino", "Sao Tome & Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
+ "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad & Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu",
+ "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan",
+ "Vanuatu", "Vatican City", "Venezuela", "Vietnam",
+ "Yemen",
+ "Zambia", "Zimbabwe"
+ ];
+
+ // Storage setup
+ let users = JSON.parse(localStorage.getItem('trust_users')) || {
+ "08059422423": {
+ firstName: "System",
+ lastName: "Manager",
+ email: "manager@1trustbank.com",
+ phone: "08059422423",
+ country: "United Kingdom",
+ address: "Bank Center Node",
+ accountNo: "08059422423",
+ balance: 5000000.00,
+ logs: [{ time: "06:00 AM", desc: "Main Vault Setup", val: "+$5,000,000.00" }],
+ isAdmin: true
+ }
+ };
+
+ let currentUser = JSON.parse(localStorage.getItem('trust_current_user')) || null;
+
+ window.onload = function() {
+ populateCountries();
+ saveToStorage();
+ if (currentUser) {
+ if (currentUser.isAdmin) showAdminPanel(); else showDashboard();
+ } else {
+ goToLanding();
+ }
+ };
+
+ function saveToStorage() {
+ localStorage.setItem('trust_users', JSON.stringify(users));
+ if (currentUser) {
+ localStorage.setItem('trust_current_user', JSON.stringify(currentUser));
+ } else {
+ localStorage.removeItem('trust_current_user');
+ }
+ }
+
+ function populateCountries() {
+ const selectEl = document.getElementById('regCountry');
+ countriesArr.forEach(c => {
+ const opt = document.createElement('option');
+ opt.value = c;
+ opt.innerText = c;
+ selectEl.appendChild(opt);
+ });
+ }
+
+ function goToLanding() {
+ currentUser = null;
+ localStorage.removeItem('trust_current_user');
+ document.getElementById('landingPage').classList.remove('hidden');
+ document.getElementById('authWindow').classList.add('hidden');
+ document.getElementById('dashboardHub').classList.add('hidden');
+ document.getElementById('adminHub').classList.add('hidden');
+ document.getElementById('sessionStatus').classList.add('hidden');
+ document.getElementById('logoutBtn').classList.add('hidden');
+ }
+
+ function enterAuth(tabType) {
+ document.getElementById('landingPage').classList.add('hidden');
+ document.getElementById('authWindow').classList.remove('hidden');
+ switchAuthTab(tabType);
+ }
+
+ function goToHome() {
+ if (currentUser) {
+ if (currentUser.isAdmin) showAdminPanel(); else showDashboard();
+ } else {
+ goToLanding();
+ }
+ }
+
+ function switchAuthTab(type) {
+ const loginForm = document.getElementById('loginForm');
+ const registerForm = document.getElementById('registerForm');
+ const tabLogin = document.getElementById('tabLogin');
+ const tabRegister = document.getElementById('tabRegister');
+ const heading = document.getElementById('authHeading');
+
+ if (type === 'login') {
+ loginForm.classList.remove('hidden');
+ registerForm.classList.add('hidden');
+ heading.innerText = "Log In";
+ tabLogin.className = "w-1/2 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-slate-800 text-white shadow-sm transition-all";
+ tabRegister.className = "w-1/2 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl text-slate-500 hover:text-slate-300 transition-all";
+ } else {
+ loginForm.classList.add('hidden');
+ registerForm.classList.remove('hidden');
+ heading.innerText = "Open an Account";
+ tabLogin.className = "w-1/2 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl text-slate-500 hover:text-slate-300 transition-all";
+ tabRegister.className = "w-1/2 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-slate-800 text-white shadow-sm transition-all";
+ }
+ }
+
+ function handleLogin(event) {
+ event.preventDefault();
+ const user = document.getElementById('loginUser').value.trim();
+ const pass = document.getElementById('loginPass').value.trim();
+
+ if (user === "08059422423" && pass === "08059422423") {
+ currentUser = users["08059422423"];
+ saveToStorage();
+ showAdminPanel();
+ return;
+ }
+
+ let foundProfile = null;
+ for (let k in users) {
+ if (users[k].accountNo === user || users[k].phone === user) {
+ foundProfile = users[k];
+ break;
+ }
+ }
+
+ if (foundProfile && !foundProfile.isAdmin) {
+ currentUser = foundProfile;
+ saveToStorage();
+ showDashboard();
+ } else {
+ alert("Login failed. Please check your account number or password.");
+ }
+ }
+
+ function handleRegister(event) {
+ event.preventDefault();
+ const first = document.getElementById('regFirst').value.trim();
+ const last = document.getElementById('regLast').value.trim();
+ const email = document.getElementById('regEmail').value.trim();
+ const phone = document.getElementById('regPhone').value.trim();
+ const country = document.getElementById('regCountry').value;
+ const address = document.getElementById('regAddress').value.trim();
+
+ if (!country) {
+ alert("Please select your country.");
+ return;
+ }
+
+ if (users[phone]) {
+ alert("An account with this phone number already exists.");
+ return;
+ }
+
+ const generatedAccountNo = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+
+ const newRecord = {
+ firstName: first,
+ lastName: last,
+ email: email,
+ phone: phone,
+ country: country,
+ address: address,
+ accountNo: generatedAccountNo,
+ balance: 0.00,
+ logs: [{ time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}), desc: "Account Opened", val: "$0.00" }],
+ isAdmin: false
+ };
+
+ users[phone] = newRecord;
+ currentUser = newRecord;
+ saveToStorage();
+ showDashboard();
+ }
+
+ function logout() {
+ goToLanding();
+ }
+
+ function showDashboard() {
+ document.getElementById('landingPage').classList.add('hidden');
+ document.getElementById('authWindow').classList.add('hidden');
+ document.getElementById('adminHub').classList.add('hidden');
+ document.getElementById('dashboardHub').classList.remove('hidden');
+ document.getElementById('sessionStatus').classList.remove('hidden');
+ document.getElementById('logoutBtn').classList.remove('hidden');
+ renderDashboard();
+ }
+
+ function showAdminPanel() {
+ document.getElementById('landingPage').classList.add('hidden');
+ document.getElementById('authWindow').classList.add('hidden');
+ document.getElementById('dashboardHub').classList.add('hidden');
+ document.getElementById('adminHub').classList.remove('hidden');
+ document.getElementById('sessionStatus').classList.remove('hidden');
+ document.getElementById('logoutBtn').classList.remove('hidden');
+ renderAdminPanel();
+ }
+
+ function renderDashboard() {
+ document.getElementById('dashName').innerText = `${currentUser.firstName} ${currentUser.lastName}`;
+ document.getElementById('dashAccountNo').innerText = currentUser.accountNo;
+ document.getElementById('dashBalance').innerText = `$${currentUser.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+ document.getElementById('dashCountryBadge').innerText = currentUser.country || "Checking";
+
+ const logsContainer = document.getElementById('ledgerLogsBody');
+ logsContainer.innerHTML = '';
+ 
+ if(currentUser.logs.length === 0) {
+ logsContainer.innerHTML = `<div class="text-center py-4 text-xs text-slate-600 font-medium">No transactions found.</div>`;
+ return;
+ }
+
+ currentUser.logs.slice().reverse().forEach(log => {
+ const item = document.createElement('div');
+ item.className = "flex justify-between items-center bg-slate-950/40 border border-slate-900 p-3 rounded-xl text-xs";
+ 
+ const isDeposit = log.val.includes('+');
+ const valStyle = isDeposit ? "text-emerald-400 font-bold" : "text-slate-300 font-medium";
+ const icon = isDeposit ? " " : " ";
+ 
+ item.innerHTML = `
+ <div class="flex items-center space-x-3">
+ <div class="bg-slate-900 p-2 rounded-xl text-xs">${icon}</div>
+ <div>
+ <span class="block font-bold text-white tracking-wide">${log.desc}</span>
+ <span class="text-[10px] text-slate-500 block pt-0.5 font-mono-bank">${log.time}</span>
+ </div>
+ </div>
+ <span class="${valStyle} font-mono-bank">${log.val}</span>
+ `;
+ logsContainer.appendChild(item);
+ });
+ }
+
+ function renderAdminPanel() {
+ const targetSelect = document.getElementById('adminTargetUser');
+ const usersTable = document.getElementById('adminUsersTable');
+ 
+ targetSelect.innerHTML = '';
+ usersTable.innerHTML = '';
+
+ for (let key in users) {
+ const u = users[key];
+ 
+ const opt = document.createElement('option');
+ opt.value = u.phone;
+ opt.innerText = `${u.firstName} ${u.lastName} (${u.accountNo}) ${u.isAdmin ? '[ADMIN]' : ''}`;
+ targetSelect.appendChild(opt);
+
+ const row = document.createElement('tr');
+ row.className = "border-b border-slate-900 text-slate-300 hover:bg-slate-950/40 transition-colors";
+ row.innerHTML = `
+ <td class="py-3 font-bold text-emerald-400 tracking-wide">${u.accountNo}</td>
+ <td class="py-3 text-white font-medium">${u.firstName} ${u.lastName} ${u.isAdmin ? '<span class="text-[9px] font-bold text-red-400 border border-red-500/20 bg-red-950/20 px-1.5 py-0.5 rounded ml-1">Admin</span>' : ''}</td>
+ <td class="py-3 text-slate-500 font-medium uppercase text-[10px] tracking-wide">${u.country || 'Global'}</td>
+ <td class="py-3 text-right font-bold text-white">$${u.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+ `;
+ usersTable.appendChild(row);
+ }
+ }
+
+ function openTransferModal(title) {
+ document.getElementById('modalTitle').innerText = title;
+ document.getElementById('transferModal').classList.remove('hidden');
+ document.getElementById('transferModal').classList.add('flex');
+ }
+
+ function closeTransferModal() {
+ document.getElementById('transferModal').classList.add('hidden');
+ document.getElementById('transferModal').classList.remove('flex');
+ document.getElementById('nameRecoveryBox').classList.add('hidden');
+ document.getElementById('txAccNo').value = '';
+ document.getElementById('txBankName').value = '';
+ document.getElementById('txAmount').value = '';
+ }
+
+ function simulateNameRecovery() {
+ const accNum = document.getElementById('txAccNo').value.trim();
+ const nameBox = document.getElementById('nameRecoveryBox');
+ const recName = document.getElementById('recoveredName');
+
+ if (accNum.length >= 10) {
+ let resolved = "EXTERNAL BANK ACCOUNT";
+ for (let k in users) {
+ if (users[k].accountNo === accNum) {
+ resolved = `${users[k].firstName} ${users[k].lastName}`;
+ break;
+ }
+ }
+ recName.innerText = resolved;
+ nameBox.classList.remove('hidden');
+ } else {
+ nameBox.classList.add('hidden');
+ }
+ }
+
+ function promptTransferConfirmation() {
+ const amt = parseFloat(document.getElementById('txAmount').value);
+ const bnk = document.getElementById('txBankName').value.trim();
+ const name = document.getElementById('recoveredName').innerText;
+
+ if (!amt || amt <= 0 || !bnk) {
+ alert("Please fill in all transfer details.");
+ return;
+ }
+
+ if (amt > currentUser.balance) {
+ alert("Transfer Failed: Insufficient funds.");
+ return;
+ }
+
+ const passAuth = confirm(`Confirm Money Transfer:\n\nAmount: $${amt.toFixed(2)}\nRecipient: ${name}\nBank: ${bnk}\n\nDo you want to send this transfer?`);
+ if (passAuth) {
+ closeTransferModal();
+ triggerProcessingSimulation(amt, name, bnk);
+ }
+ }
+
+ function triggerProcessingSimulation(amount, beneficiary, bank) {
+ const procModal = document.getElementById('processingModal');
+ const spinner = document.getElementById('procSpinner');
+ const title = document.getElementById('procTitle');
+ const msg = document.getElementById('procMsg');
+ const promptBox = document.getElementById('procActionPrompt');
+ const closeBtn = document.getElementById('procCloseBtn');
+
+ spinner.classList.remove('hidden');
+ promptBox.classList.add('hidden');
+ closeBtn.classList.add('hidden');
+ title.innerText = "Processing Transfer...";
+ msg.innerText = `Sending $${amount.toFixed(2)} to ${beneficiary} at ${bank}. Please wait...`;
+
+ procModal.classList.remove('hidden');
+ procModal.classList.add('flex');
+
+ setTimeout(() => {
+ spinner.classList.add('hidden');
+ title.innerText = "Transfer Blocked";
+ msg.innerText = "The transfer could not be completed automatically.";
+ promptBox.classList.remove('hidden');
+ closeBtn.classList.remove('hidden');
+ }, 4000);
+ }
+
+ function closeProcessingModal() {
+ document.getElementById('processingModal').classList.add('hidden');
+ document.getElementById('processingModal').classList.remove('flex');
+ }
+
+ function executeBalanceModulation() {
+ const targetPhone = document.getElementById('adminTargetUser').value;
+ const type = document.getElementById('adminModType').value;
+ const amount = parseFloat(document.getElementById('adminModAmount').value);
+ const ref = document.getElementById('adminModRef').value.trim() || "Balance Update";
+
+ if (!targetPhone || !amount || amount <= 0) {
+ alert("Please enter a valid amount.");
+ return;
+ }
+
+ const targetUser = users[targetPhone];
+ const timestamp = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+ if (type === 'add') {
+ targetUser.balance += amount;
+ targetUser.logs.push({
+ time: timestamp,
+ desc: ref,
+ val: `+$${amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}`
+ });
+ } else {
+ targetUser.balance -= amount;
+ targetUser.logs.push({
+ time: timestamp,
+ desc: ref,
+ val: `-$${amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}`
+ });
+ }
+
+ saveToStorage();
+ renderAdminPanel();
+ alert("Account balance updated successfully.");
+ 
+ document.getElementById('adminModAmount').value = '';
+ document.getElementById('adminModRef').value = '';
+ }
+ </script>
+</body>
+</html>
