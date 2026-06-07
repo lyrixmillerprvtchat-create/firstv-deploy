@@ -369,13 +369,14 @@
  </footer>
 
  <script>
- // ZERO MANUAL CONFIGURATION REQUIRED: 
- // This configuration pattern automatically catches the variables injected into Vercel by the Supabase ecosystem link.
- const SUPABASE_URL = window['process']?.env?.NEXT_PUBLIC_SUPABASE_URL || "https://your-supabase-project.supabase.co"; 
- const SUPABASE_ANON_KEY = window['process']?.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY || "your-actual-anon-key-string-here";
+const SUPABASE_URL = "https://epdzbjsecfsyhfknfbca.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwZHpianNlY2ZzeWZoa25mYmNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3ODU1ODcsImV4cCI6MjA5NjM2MTU4N30.BzLzojk5Oi7xS-CHuRK4_QYHgKy6T3Dq90yJQP2RAb4";
 
- // Initialize Supabase Client
- const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+window._supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+console.log("Supabase initialized successfully.");
+</script>
+
+ 
 
  const countriesArr = [
  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua & Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
