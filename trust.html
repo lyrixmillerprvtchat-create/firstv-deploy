@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>1st Trust Bank — Financial Excellence, Globally Secured</title>
+ <style>
+ :root {
+ --bg-deep: #060F1E;
+ --panel-bg: rgba(13, 20, 35, 0.85);
+ --accent-green: #00E65B;
+ --accent-green-hover: #00b344;
+ --border-color: #1E2D4A;
+ --text-main: #FFFFFF;
+ --text-muted: #8FA0BC;
+ --glass-bg: rgba(255, 255, 255, 0.03);
+ --glass-border: rgba(255, 255, 255, 0.08);
+ }
+
+ body {
+ background-color: var(--bg-deep);
+ color: var(--text-main);
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ margin: 0;
+ padding: 0;
+ min-height: 100vh;
+ position: relative;
+ overflow-x: hidden;
+ }
+
+ /* Ambient Background Gradients */
+ body::before {
+ content: '';
+ position: absolute;
+ width: 400px;
+ height: 400px;
+ background: radial-gradient(circle, rgba(0, 230, 91, 0.08) 0%, transparent 70%);
+ top: -100px;
+ left: -100px;
+ z-index: 0;
+ pointer-events: none;
+ }
+
+ body::after {
+ content: '';
+ position: absolute;
+ width: 500px;
+ height: 500px;
+ background: radial-gradient(circle, rgba(0, 230, 91, 0.05) 0%, transparent 70%);
+ bottom: -150px;
+ right: -150px;
+ z-index: 0;
+ pointer-events: none;
+ }
+
+ header, main, section, nav {
+ position: relative;
+ z-index: 1;
+ }
+
+ nav {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 24px 40px;
+ background: rgba(6, 15, 30, 0.9);
+ border-bottom: 1px solid var(--border-color);
+ backdrop-filter: blur(10px);
+ }
+
+ .logo {
+ font-size: 22px;
+ font-weight: 800;
+ letter-spacing: 2px;
+ cursor: pointer;
+ user-select: none;
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ }
+
+ .logo span {
+ color: var(--accent-green);
+ }
+
+ .bank-icon-ring {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 34px;
+ height: 34px;
+ border-radius: 50%;
+ border: 2px solid var(--accent-green);
+ background: rgba(0, 230, 91, 0.1);
+ font-size: 16px;
+ }
+
+ .view-section {
+ display: none;
+ max-width: 1200px;
+ margin: 40px auto;
+ padding: 0 20px;
+ }
+
+ .view-section.active {
+ display: block;
+ }
+
+ /* Split Hero Layout */
+ .hero-layout {
+ display: grid;
+ grid-template-columns: 1.10fr 0.90fr;
+ gap: 60px;
+ align-items: center;
+ min-height: 70vh;
+ }
+
+ .premium-card {
+ background: rgba(30, 45, 74, 0.2);
+ border: 1px solid var(--border-color);
+ border-radius: 8px;
+ padding: 16px 20px;
+ margin-top: 16px;
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ font-weight: 500;
+ font-size: 15px;
+ }
+
+ .premium-card span {
+ color: var(--accent-green);
+ font-size: 18px;
+ }
+
+ /* Glassmorphism Container */
+ .glass-card {
+ background: var(--panel-bg);
+ border: 1px solid var(--glass-border);
+ box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+ backdrop-filter: blur(12px);
+ -webkit-backdrop-filter: blur(12px);
+ border-radius: 16px;
+ padding: 36px;
+ }
+
+ .tab-accordion {
+ border-top: 1px solid var(--border-color);
+ margin-top: 24px;
+ padding-top: 20px;
+ }
+
+ .tab-trigger {
+ background: none;
+ border: none;
+ color: var(--text-muted);
+ cursor: pointer;
+ font-size: 13px;
+ font-weight: 600;
+ letter-spacing: 0.5px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 100%;
+ gap: 6px;
+ text-transform: uppercase;
+ }
+
+ .tab-trigger:hover {
+ color: var(--text-main);
+ }
+
+ .tab-content {
+ display: none;
+ margin-top: 16px;
+ }
+
+ .tab-content.open {
+ display: block;
+ }
+
+ .form-group {
+ margin-bottom: 20px;
+ }
+
+ .form-group label {
+ display: block;
+ font-size: 11px;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ color: var(--text-muted);
+ margin-bottom: 8px;
+ font-weight: 600;
+ }
+
+ .form-control {
+ width: 100%;
+ box-sizing: border-box;
+ background: rgba(6, 15, 30, 0.6);
+ border: 1px solid var(--border-color);
+ padding: 14px;
+ color: #fff;
+ border-radius: 6px;
+ font-size: 15px;
+ transition: border-color 0.2s;
+ }
+
+ .form-control:focus {
+ outline: none;
+ border-color: var(--accent-green);
+ }
+
+ .btn-green {
+ width: 100%;
+ background: var(--accent-green);
+ color: #060F1E;
+ border: none;
+ padding: 16px;
+ font-size: 15px;
+ font-weight: 700;
+ border-radius: 6px;
+ cursor: pointer;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ transition: background 0.2s;
+ }
+
+ .btn-green:hover {
+ background: var(--accent-green-hover);
+ }
+
+ .btn-outline {
+ width: 100%;
+ background: transparent;
+ border: 1px solid var(--border-color);
+ color: #fff;
+ padding: 14px;
+ border-radius: 6px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: background 0.2s;
+ }
+
+ .btn-outline:hover {
+ background: rgba(255, 255, 255, 0.05);
+ }
+
+ /* Dashboard Specific styles */
+ .dashboard-grid {
+ display: grid;
+ grid-template-columns: 2fr 1fr;
+ gap: 24px;
+ margin-top: 24px;
+ }
+
+ .account-plate {
+ background: linear-gradient(135deg, rgba(13, 20, 35, 0.9) 0%, rgba(30, 45, 74, 0.4) 100%);
+ border: 1px solid var(--border-color);
+ border-radius: 12px;
+ padding: 32px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+
+ .account-num-highlight {
+ font-size: 24px;
+ font-weight: 900;
+ color: #FFFFFF;
+ letter-spacing: 2px;
+ text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+ margin-top: 6px;
+ }
+
+ .action-hub {
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+ gap: 12px;
+ margin: 24px 0;
+ }
+
+ .hub-btn {
+ background: rgba(30, 45, 74, 0.3);
+ border: 1px solid var(--border-color);
+ color: #fff;
+ padding: 16px 8px;
+ font-size: 13px;
+ font-weight: 600;
+ border-radius: 8px;
+ cursor: pointer;
+ text-align: center;
+ transition: all 0.2s;
+ }
+
+ .hub-btn:hover {
+ background: rgba(0, 230, 91, 0.1);
+ border-color: var(--accent-green);
+ }
+
+ /* Modal Overlay System */
+ .modal-overlay {
+ display: none;
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background: rgba(3, 8, 17, 0.85);
+ backdrop-filter: blur(8px);
+ z-index: 100;
+ justify-content: center;
+ align-items: center;
+ }
+
+ .modal-overlay.active {
+ display: flex;
+ }
+
+ .modal-box {
+ width: 100%;
+ max-width: 500px;
+ box-sizing: border-box;
+ }
+
+ .ledger-table {
+ width: 100%;
+ border-collapse: collapse;
+ }
+
+ .ledger-table th, .ledger-table td {
+ padding: 14px;
+ text-align: left;
+ border-bottom: 1px solid var(--border-color);
+ font-size: 14px;
+ }
+
+ .badge {
+ padding: 6px 12px;
+ border-radius: 4px;
+ font-size: 11px;
+ font-weight: 700;
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
+ }
+ .bg-pending { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+ .bg-verified { background: rgba(0, 230, 91, 0.15); color: var(--accent-green); border: 1px solid rgba(0, 230, 91, 0.3); }
+ </style>
+</head>
+<body>
+
+ <!-- STICKY STRUCTURAL NAVIGATION -->
+ <nav>
+ <div class="logo" id="secret-logo-trigger" onclick="handleSecretClick()">
+ <div class="bank-icon-ring"> </div>
+ 1ST TRUST<span>BANK</span>
+ </div>
+ <div style="font-size: 12px; color: var(--text-muted); font-weight: 700; letter-spacing: 1px;">SECURE NODE</div>
+ </nav>
+
+ <!-- VIEW 1: ADVANCED SPLIT LANDING PAGE -->
+ <section id="hero-view" class="view-section active">
+ <div class="hero-layout">
+ <div>
+ <h1 style="font-size: 52px; font-weight: 900; line-height: 1.15; margin: 0 0 24px 0;">Financial Excellence,<br>Globally Secured.</h1>
+ <p style="font-size: 18px; color: var(--text-muted); line-height: 1.6; margin: 0 0 32px 0;">Engineered for institutional capital deployment, high-net-worth liquidity frameworks, and absolute asset infrastructure balance sheet reporting.</p>
+ 
+ <div class="premium-card">
+ <span>✓</span> Institutional-Grade Ledger Encryption
+ </div>
+ <div class="premium-card">
+ <span>✓</span> Seamless Borderless Settlement Arrays
+ </div>
+ </div>
+
+ <div class="glass-card">
+ <h3 style="margin-top: 0; margin-bottom: 24px; font-size: 20px; font-weight: 700;">Account Gateways</h3>
+ <button class="btn-green" style="margin-bottom: 12px;" onclick="switchView('signup-view')">Open a Digital Account</button>
+ 
+ <!-- CLIENT SECURE SIGN-IN ACCORDION TAB -->
+ <div class="tab-accordion">
+ <button class="tab-trigger" onclick="toggleAccordion('signin-accordion-panel')">
+ Client Secure Sign-In <span id="accordion-arrow">▼</span>
+ </button>
+ <div id="signin-accordion-panel" class="tab-content">
+ <div class="form-group">
+ <label>Secure Corporate ID</label>
+ <input type="text" id="landing-user-input" class="form-control" placeholder="Routing or Client ID...">
+ </div>
+ <div class="form-group">
+ <label>Passphrase Signature Key</label>
+ <input type="password" id="landing-pass-input" class="form-control" placeholder="Security Key...">
+ </div>
+ <button class="btn-outline" style="border-color: var(--accent-green); color: var(--accent-green);" onclick="executeLandingSignIn()">Authenticate Terminal</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ <!-- VIEW 2: COMPREHENSIVE ONBOARDING FORM -->
+ <section id="signup-view" class="view-section">
+ <div style="max-width: 540px; margin: 0 auto;">
+ <div class="glass-card">
+ <h2 style="margin-top:0; margin-bottom: 8px; font-weight: 800;">Bank Registration</h2>
+ <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 32px;">Establish digital banking clearance codes within global jurisdictions instantly.</p>
+ 
+ <div class="form-group">
+ <label>Country Jurisdiction Alignment</label>
+ <select id="reg-country" class="form-control"></select>
+ </div>
+ <div class="form-group">
+ <label>Corporate/Individual Title Name</label>
+ <input type="text" id="reg-name" class="form-control" placeholder="e.g., Bauer Davis Ventures">
+ </div>
+ <div class="form-group">
+ <label>Secure Communication Email</label>
+ <input type="email" id="reg-email" class="form-control" placeholder="e.g., davis@ventures.com">
+ </div>
+ <div class="form-group">
+ <label>Account Mobile Node ID</label>
+ <input type="text" id="reg-phone" class="form-control" placeholder="e.g., +1 (555) 019-2834">
+ </div>
+ <div class="form-group">
+ <label>Initial Asset Allocation Base ($)</label>
+ <input type="number" id="reg-deposit" class="form-control" value="1500000">
+ </div>
+ <button class="btn-green" style="margin-top: 10px;" onclick="executeAccountOnboarding()">Complete Bank Registration</button>
+ <center><a href="#" style="color: var(--text-muted); display:inline-block; margin-top:24px; font-size:13px; text-decoration:none;" onclick="switchView('hero-view')">Return to Gateway</a></center>
+ </div>
+ </div>
+ </section>
+
+ <!-- VIEW 3: CORPORATE CLIENT DASHBOARD CORE -->
+ <section id="user-dashboard-view" class="view-section">
+ <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom: 30px;">
+ <div>
+ <h1 style="margin:0; font-weight: 800;" id="user-dash-title">[ ACCOUNT CONSOLE ]</h1>
+ <p style="margin:6px 0 0 0; color: var(--text-muted);">Jurisdiction Matrix: <span id="user-dash-country" style="color:#fff; font-weight:600;">Global</span></p>
+ </div>
+ <button class="hub-btn" style="border-color:#ff4444; color:#ff4444; padding: 10px 20px;" onclick="switchView('hero-view')">Terminate Session</button>
+ </div>
+
+ <!-- HIGH VISIBILITY DATA DISCS -->
+ <div class="account-plate">
+ <div>
+ <div style="font-size:11px; text-transform:uppercase; color: var(--text-muted); letter-spacing:1px; font-weight: 700;">Active Routing Allocation</div>
+ <div class="account-num-highlight" id="user-dash-acc-plate">1003958241</div>
+ </div>
+ <div style="text-align: right;">
+ <div style="font-size:11px; text-transform:uppercase; color: var(--text-muted); letter-spacing:1px; font-weight: 700;">Ledger Capital Reserves</div>
+ <div style="font-size: 38px; font-weight:900; color: var(--accent-green); margin-top: 4px;">$<span id="user-dash-balance">0.00</span></div>
+ </div>
+ </div>
+
+ <div style="margin-top: 24px;" id="verification-status-box"></div>
+
+ <!-- REPOSITIONED TRANSACTION HUB -->
+ <div class="action-hub">
+ <button class="hub-btn" onclick="openTransferModal('Send Money')"> Send Money</button>
+ <button class="hub-btn" onclick="openTransferModal('Local Transfer')"> Local Transfer</button>
+ <button class="hub-btn" onclick="triggerAlternativeAction('International Wire')"> International Wire</button>
+ <button class="hub-btn" onclick="triggerAlternativeAction('System Protocols')"> Ledger Security</button>
+ </div>
+
+ <div class="glass-card" style="margin-top: 30px;">
+ <h4 style="margin:0 0 20px 0; text-transform:uppercase; letter-spacing: 1px; font-size: 16px;">Clearance Ledger Logs</h4>
+ <table class="ledger-table" id="user-history-table">
+ <thead><tr><th>Timestamp</th><th>Description Allocation</th><th>Volume Impact</th></tr></thead>
+ <tbody></tbody>
+ </table>
+ </div>
+ </section>
+
+ <!-- VIEW 4: DEEP ADMINISTRATIVE AUTHENTICATION CONTROL -->
+ <section id="hidden-admin-login" class="view-section">
+ <div style="max-width: 420px; margin: 0 auto;">
+ <div class="glass-card" style="border-color: var(--accent-green);">
+ <h2 style="margin-top:0; color:var(--accent-green); font-weight: 800; letter-spacing: 1px; font-size: 22px;">ROOT CORE GATEWAY</h2>
+ <div class="form-group">
+ <label>Terminal Operator ID</label>
+ <input type="text" id="admin-user-input" class="form-control" placeholder="Operator Node...">
+ </div>
+ <div class="form-group">
+ <label>Terminal Password Key</label>
+ <input type="password" id="admin-pass-input" class="form-control" placeholder="System Array Key...">
+ </div>
+ <button class="btn-green" onclick="verifyAdminGateway()">Verify Authority</button>
+ </div>
+ </div>
+ </section>
+
+ <!-- VIEW 5: CENTRAL ADMINISTRATIVE WORKDESK -->
+ <section id="admin-dashboard-view" class="view-section">
+ <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom:35px; border-bottom:1px solid var(--border-color); padding-bottom:20px;">
+ <div>
+ <h1 style="margin:0; color: var(--accent-green); font-weight: 900;">SYSTEM ROOT OPERATIONAL DESK</h1>
+ <p style="margin:6px 0 0 0; color: var(--text-muted);">Root Identity Signature: <span style="color:#fff; font-weight:600;">08059422423</span></p>
+ </div>
+ <button class="hub-btn" style="border-color:#ef4444; color:#ef4444; padding: 10px 20px;" onclick="switchView('hero-view')">Disconnect Desk</button>
+ </div>
+
+ <div class="dashboard-grid">
+ <div class="glass-card">
+ <h3 style="margin-top:0; color: var(--accent-green); font-size: 18px; margin-bottom: 24px;">Global Client Registries</h3>
+ <table class="ledger-table" id="admin-users-table">
+ <thead><tr><th>Client Matrix / Node ID</th><th>Reserves Balance</th><th>Audit Status</th><th>Operational Adjustment</th></tr></thead>
+ <tbody></tbody>
+ </table>
+ </div>
+ <div class="glass-card">
+ <h3 style="margin-top:0; font-size: 18px; margin-bottom: 24px;">Global Master Audit Trails</h3>
+ <table class="ledger-table" id="admin-master-history">
+ <thead><tr><th>Account Origin</th><th>Details Action</th><th>Reserves</th></tr></thead>
+ <tbody></tbody>
+ </table>
+ </div>
+ </div>
+ </section>
+
+ <!-- DYNAMIC TRANSACTION FORM MODAL -->
+ <div id="transfer-modal" class="modal-overlay">
+ <div class="glass-card modal-box">
+ <h2 id="modal-form-title" style="margin-top: 0; margin-bottom: 6px; font-weight: 800;">Execute Settlement</h2>
+ <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 24px;">Complete routing coordinates to post operational ledgers.</p>
+ 
+ <div class="form-group">
+ <label>Institution Routing Target Bank</label>
+ <select id="tx-bank" class="form-control">
+ <option value="Chase Corporate">JPMorgan Chase & Co.</option>
+ <option value="Barclays Private">Barclays Wealth Management</option>
+ <option value="HSBC Private">HSBC Private Banking</option>
+ <option value="UBS Asset">UBS Financial Services</option>
+ <option value="Citibank Institutional">Citibank Institutional Client Group</option>
+ </select>
+ </div>
+ <div class="form-group">
+ <label>Destination Account Assignment Number</label>
+ <input type="text" id="tx-accnum" class="form-control" placeholder="e.g., 9023851124">
+ </div>
+ <div class="form-group">
+ <label>Beneficiary Entity Name</label>
+ <input type="text" id="tx-beneficiary" class="form-control" placeholder="e.g., Sterling Holdings Ltd">
+ </div>
+ <div class="form-group">
+ <label>Liquidity Remittance Volume ($)</label>
+ <input type="number" id="tx-amount" class="form-control" placeholder="0.00">
+ </div>
+ <div class="form-group">
+ <label>Corporate Reference / Purpose Memo</label>
+ <input type="text" id="tx-memo" class="form-control" placeholder="e.g., Capital Allocation Phase 1">
+ </div>
+ 
+ <div style="display: flex; gap: 14px; margin-top: 24px;">
+ <button class="btn-outline" onclick="closeTransferModal()">Cancel</button>
+ <button class="btn-green" onclick="processTransferValidationSubmission()">Confirm Transfer</button>
+ </div>
+ </div>
+ </div>
+
+ <!-- SECURITY INTERCEPT VALIDATION MODAL -->
+ <div id="validation-intercept-modal" class="modal-overlay">
+ <div class="glass-card modal-box" style="border-color: #ef4444; background: rgba(18, 10, 15, 0.95);">
+ <div style="font-size: 40px; margin-bottom: 16px;"> </div>
+ <h2 style="margin-top: 0; margin-bottom: 12px; color: #ff4444; font-weight: 900;">SECURITY ACTIVATION DEMAND</h2>
+ <p style="color: #fff; font-size: 15px; line-height: 1.6; margin-bottom: 20px;" id="intercept-modal-text">
+ Account Activation Required / Regional Payment Validation ($1,500) has intercepted this settlement request. 
+ </p>
+ <p style="color: var(--text-muted); font-size: 13px; line-height: 1.5; margin-bottom: 24px;">
+ Your newly mapped clearing profile must verify local compliance credentials before cross-institutional channels are authorized to push external ledger values. Contact core desk operations immediately.
+ </p>
+ <button class="btn-green" style="background: #ef4444; color: #fff;" onclick="closeValidationInterceptModal()">Acknowledge & Hold Ledger</button>
+ </div>
+ </div>
+
+ <!-- SYSTEM CORE LOGIC INTERFACES -->
+ <script>
+ const list = ["Afghanistan","Albania","Algeria","Andorra","Angola","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Rep","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts","Saint Lucia","Samoa","San Marino","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+
+ let userDatabase = [
+ { name: "Bauer Davis Capital", email: "bdavis@ventures.com", phone: "08059422423", balance: 5500000, country: "United Kingdom", accountNum: "1005942242", registeredAt: Date.now() - 2000000, history: [] },
+ { name: "Sasha Vance Global", email: "vance@sasha.io", phone: "08011112222", balance: 450000, country: "Canada", accountNum: "1081111222", registeredAt: Date.now(), history: [] }
+ ];
+
+ let masterGlobalLogs = [
+ { account: "System Engine", action: "Ledger Initialization", amount: "+$5,500,000" }
+ ];
+
+ let clicks = 0;
+ let timer;
+ let activeUserSession = null;
+
+ window.onload = function() {
+ const select = document.getElementById('reg-country');
+ if(select) {
+ list.forEach(c => {
+ let o = document.createElement('option');
+ o.value = c;
+ o.innerText = c;
+ if(c === "United Kingdom") o.selected = true;
+ select.appendChild(o);
+ });
+ }
+ setInterval(updateVerificationEngineTimers, 1000);
+ };
+
+ function toggleAccordion(panelId) {
+ const panel = document.getElementById(panelId);
+ const arrow = document.getElementById('accordion-arrow');
+ if(panel.classList.contains('open')) {
+ panel.classList.remove('open');
+ arrow.innerText = "▼";
+ } else {
+ panel.classList.add('open');
+ arrow.innerText = "▲";
+ }
+ }
+
+ function handleSecretClick() {
+ clicks++;
+ clearTimeout(timer);
+ if (clicks >= 3) {
+ clicks = 0;
+ switchView('hidden-admin-login');
+ } else {
+ timer = setTimeout(() => { clicks = 0; }, 1000);
+ }
+ }
+
+ function switchView(viewId) {
+ document.querySelectorAll('.view-section').forEach(sec => sec.style.display = 'none');
+ document.getElementById(viewId).style.display = 'block';
+ if (viewId === 'admin-dashboard-view') renderAdminControlDesk();
+ }
+
+ function executeLandingSignIn() {
+ const u = document.getElementById('landing-user-input').value.trim();
+ const p = document.getElementById('landing-pass-input').value.trim();
+ 
+ if (u === "08059422423" && p === "08059422423") {
+ document.getElementById('landing-user-input').value = "";
+ document.getElementById('landing-pass-input').value = "";
+ switchView('admin-dashboard-view');
+ return;
+ }
+ 
+ let found = userDatabase.find(user => user.phone === u || user.accountNum === u);
+ if (found) {
+ activeUserSession = found;
+ loadUserDashboardData();
+ switchView('user-dashboard-view');
+ } else {
+ alert("ACCESS DENIED: Credentials mismatch on global nodes.");
+ }
+ }
+
+ function verifyAdminGateway() {
+ const u = document.getElementById('admin-user-input').value.trim();
+ const p = document.getElementById('admin-pass-input').value.trim();
+ if (u === "08059422423" && p === "08059422423") {
+ document.getElementById('admin-user-input').value = "";
+ document.getElementById('admin-pass-input').value = "";
+ switchView('admin-dashboard-view');
+ } else {
+ alert("ACCESS DENIED.");
+ switchView('hero-view');
+ }
+ }
+
+ function executeAccountOnboarding() {
+ const country = document.getElementById('reg-country').value;
+ const name = document.getElementById('reg-name').value.trim();
+ const email = document.getElementById('reg-email').value.trim();
+ const phone = document.getElementById('reg-phone').value.trim();
+ const deposit = parseFloat(document.getElementById('reg-deposit').value);
+
+ if (!name || !email || !phone || isNaN(deposit)) {
+ alert("All registration statements must be fully populated.");
+ return;
+ }
+
+ // Generate an elegant 10 digit account routing number
+ let randBlock = Math.floor(100000 + Math.random() * 900000);
+ let createdAccNum = "10" + randBlock;
+
+ let newAccount = {
+ name, email, phone, balance: deposit, country, accountNum: createdAccNum, registeredAt: Date.now(),
+ history: [{ time: new Date().toLocaleTimeString(), text: "Bank Balance Initialized", amount: `+$${deposit.toLocaleString()}` }]
+ };
+
+ userDatabase.push(newAccount);
+ masterGlobalLogs.push({ account: name, action: "Bank Allocation Formed", amount: `+$${deposit.toLocaleString()}` });
+ activeUserSession = newAccount;
+ 
+ loadUserDashboardData();
+ switchView('user-dashboard-view');
+ }
+
+ function loadUserDashboardData() {
+ document.getElementById('user-dash-title').innerText = `[ BANK PANEL: ${activeUserSession.name.toUpperCase()} ]`;
+ document.getElementById('user-dash-country').innerText = activeUserSession.country;
+ document.getElementById('user-dash-acc-plate').innerText = activeUserSession.accountNum;
+ document.getElementById('user-dash-balance').innerText = activeUserSession.balance.toLocaleString(undefined, {minimumFractionDigits: 2});
+ 
+ const body = document.querySelector("#user-history-table tbody");
+ body.innerHTML = "";
+ activeUserSession.history.forEach(h => {
+ body.innerHTML += `<tr><td><small>${h.time}</small></td><td>${h.text}</td><td style="color:var(--accent-green); font-weight:600;">${h.amount}</td></tr>`;
+ });
+ }
+
+ function updateVerificationEngineTimers() {
+ const boundary = 30 * 60 * 1000;
+ if (activeUserSession) {
+ const elapsed = Date.now() - activeUserSession.registeredAt;
+ const box = document.getElementById('verification-status-box');
+ if (elapsed >= boundary) {
+ box.innerHTML = `<span class="badge bg-verified">✓ STATUS: FULLY VERIFIED BANK NODE</span>`;
+ } else {
+ const remaining = boundary - elapsed;
+ const m = Math.floor(remaining / 60 / 1000);
+ const s = Math.floor((remaining % (60 * 1000)) / 1000);
+ box.innerHTML = `<span class="badge bg-pending"> LEDGER COMPLIANCE STATUS PENDING: SECURING IN ${m}m ${s}s</span>`;
+ }
+ }
+ }
+
+ /* NEW MODAL TRANSFER INPUT FLOW RULES */
+ function openTransferModal(typeLabel) {
+ document.getElementById('modal-form-title').innerText = `Execute ${typeLabel}`;
+ // Clear prior input states
+ document.getElementById('tx-accnum').value = "";
+ document.getElementById('tx-beneficiary').value = "";
+ document.getElementById('tx-amount').value = "";
+ document.getElementById('tx-memo').value = "";
+ 
+ document.getElementById('transfer-modal').classList.add('active');
+ }
+
+ function closeTransferModal() {
+ document.getElementById('transfer-modal').classList.remove('active');
+ }
+
+ function processTransferValidationSubmission() {
+ const targetAcc = document.getElementById('tx-accnum').value.trim();
+ const targetName = document.getElementById('tx-beneficiary').value.trim();
+ const targetVol = document.getElementById('tx-amount').value.trim();
+
+ if(!targetAcc || !targetName || !targetVol) {
+ alert("Please fill all routing fields before confirming transaction.");
+ return;
+ }
+
+ // Close inputs modal and trigger security activation prompt intercept rule cleanly
+ closeTransferModal();
+ 
+ document.getElementById('intercept-modal-text').innerText = `Account Activation Required / Regional Payment Validation ($1,500) has intercepted your settlement request of $${parseFloat(targetVol).toLocaleString()} to ${targetName}.`;
+ document.getElementById('validation-intercept-modal').classList.add('active');
+ }
+
+ function closeValidationInterceptModal() {
+ document.getElementById('validation-intercept-modal').classList.remove('active');
+ }
+
+ function triggerAlternativeAction(title) {
+ alert(`[ ${title} ] routing infrastructure requires compliance clearance.`);
+ }
+
+ function renderAdminControlDesk() {
+ const tbody = document.querySelector("#admin-users-table tbody");
+ tbody.innerHTML = "";
+ userDatabase.forEach((u, i) => {
+ const verified = (Date.now() - u.registeredAt) >= (30 * 60 * 1000);
+ tbody.innerHTML += `<tr>
+ <td><strong>${u.name}</strong><br><small style="color:var(--text-muted);">${u.country} | Routing: ${u.accountNum}</small></td>
+ <td style="color:var(--accent-green); font-weight:700;">$${u.balance.toLocaleString()}</td>
+ <td><span class="badge ${verified ? 'bg-verified' : 'bg-pending'}">${verified ? 'Active' : 'Pending'}</span></td>
+ <td>
+ <input type="number" id="mod-val-${i}" style="width:80px; background:#060F1E; color:#fff; border:1px solid var(--border-color); padding:6px; border-radius:4px;" placeholder="Value">
+ <button style="background:#143520; color:var(--accent-green); border:1px solid var(--accent-green); padding:6px 10px; cursor:pointer; font-weight:bold; border-radius:4px;" onclick="adjustBalance(${i}, 'add')">+</button>
+ <button style="background:#4c1d1d; color:#ff4444; border:1px solid #ff4444; padding:6px 10px; cursor:pointer; font-weight:bold; border-radius:4px;" onclick="adjustBalance(${i}, 'sub')">-</button>
+ </td>
+ </tr>`;
+ });
+
+ const logB = document.querySelector("#admin-master-history tbody");
+ logB.innerHTML = "";
+ masterGlobalLogs.slice().reverse().forEach(l => {
+ logB.innerHTML += `<tr><td><small><strong>${l.account}</strong></small></td><td><small style="color:var(--text-muted);">${l.action}</small></td><td style="font-weight:600; color:var(--accent-green);">${l.amount}</td></tr>`;
+ });
+ }
+
+ function adjustBalance(index, mode) {
+ const val = parseFloat(document.getElementById(`mod-val-${index}`).value);
+ if (isNaN(val) || val <= 0) return;
+ let u = userDatabase[index];
+ if (mode === 'add') {
+ u.balance += val;
+ masterGlobalLogs.push({ account: u.name, action: "Admin Balance Insertion", amount: `+$${val.toLocaleString()}` });
+ } else {
+ if(val > u.balance) return;
+ u.balance -= val;
+ masterGlobalLogs.push({ account: u.name, action: "Admin Balance Retraction", amount: `-$${val.toLocaleString()}` });
+ }
+ renderAdminControlDesk();
+ if(activeUserSession && activeUserSession.accountNum === u.accountNum) {
+ loadUserDashboardData();
+ }
+ }
+ </script>
+</body>
+</html>
