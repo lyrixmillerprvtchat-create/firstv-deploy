@@ -351,18 +351,18 @@ getElementById('admin-user-input').value = "";
             const phone = document.getElementById('reg-phone').value.trim();
             const deposit = parseFloat(document.getElementById('reg-deposit').value);
 
-            if (!name  !email  !phone || isNaN(deposit)) {
+            if (!name || !email || !phone || isNaN(deposit)) {
                 alert("Please fill all fields.");
                 return;
             }
 
             let newAccount = {
                 name, email, phone, balance: deposit, country, registeredAt: Date.now(),
-                history: [{ time: new Date().toLocaleTimeString(), text: "Vault initialized", amount: +$${deposit.toLocaleString()} }]
+                history: [{ time: new Date().toLocaleTimeString(), text: "Vault initialized", amount: `+$${deposit.toLocaleString()}` }]
             };
 
             userDatabase.push(newAccount);
-            masterGlobalLogs.push({ account: name, action: "Account Registered", amount: +$${deposit.toLocaleString()} });
+            masterGlobalLogs.push({ account: name, action: "Account Registered", amount: `+$${deposit.toLocaleString()}` });
             activeUserSession = newAccount;
             
             document.getElementById('user-dash-title').innerText = [ PANEL: ${activeUserSession.name.toUpperCase()} ];
