@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>1TRUST BANK | Digital Banking</title>
+  <!-- Google Fonts: Geometric Sans-Serif -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: url('https://images.pexels.com/photos/2163211/pexels-photo-2163211.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat fixed;
+      background-size: cover;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    /* Cinematic dark overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(1.5px);
+      z-index: 0;
+    }
+
+    /* Glassmorphism card */
+    .glass-card {
+      position: relative;
+      z-index: 10;
+      max-width: 620px;
+      width: 100%;
+      background: rgba(15, 20, 30, 0.55);
+      backdrop-filter: blur(16px);
+      border-radius: 2.5rem;
+      border: 1px solid rgba(46, 204, 113, 0.45);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(46, 204, 113, 0.2);
+      padding: 2rem 1.8rem;
+      transition: all 0.3s ease;
+    }
+
+    /* Brand styling */
+    .brand {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #FFFFFF 20%, #2ECC71 85%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.4rem;
+      text-align: center;
+    }
+
+    .tagline {
+      text-align: center;
+      color: #CFE9DC;
+      font-weight: 500;
+      font-size: 0.85rem;
+      border-bottom: 1px dashed rgba(46, 204, 113, 0.4);
+      display: inline-block;
+      width: auto;
+      margin: 0 auto 1rem auto;
+      padding-bottom: 0.4rem;
+    }
+
+    .value-prop {
+      background: rgba(0, 0, 0, 0.45);
+      border-left: 4px solid #2ECC71;
+      padding: 0.75rem 1rem;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-weight: 600;
+      color: #eef4ff;
+      font-size: 0.9rem;
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      margin: 1.5rem 0 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      flex: 1;
+      padding: 0.9rem 0;
+      border-radius: 3rem;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      text-align: center;
+      border: none;
+    }
+    .btn-primary {
+      background: #2ECC71;
+      color: #0a1f12;
+      box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+    }
+    .btn-primary:hover {
+      background: #27ae60;
+      transform: scale(0.98);
+    }
+    .btn-outline {
+      border: 1.5px solid #2ECC71;
+      background: transparent;
+      color: #2ECC71;
+      backdrop-filter: blur(4px);
+    }
+    .btn-outline:hover {
+      background: rgba(46, 204, 113, 0.12);
+    }
+    .back-nav {
+      background: rgba(255, 255, 240, 0.08);
+      border: none;
+      color: #bbb;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.8rem;
+      margin-bottom: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .back-nav:hover {
+      background: rgba(46, 204, 113, 0.25);
+      color: white;
+    }
+
+    /* Form elements */
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    label {
+      display: block;
+      color: #d4e6f1;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(10, 15, 25, 0.85);
+      border: 1px solid #2a4532;
+      border-radius: 1.2rem;
+      color: white;
+      font-size: 0.9rem;
+      outline: none;
+      transition: 0.2s;
+    }
+    input:focus, select:focus {
+      border-color: #2ECC71;
+      box-shadow: 0 0 0 2px rgba(46,204,113,0.2);
+    }
+    .submit-btn {
+      background: #2ECC71;
+      color: #0a1a0e;
+      font-weight: bold;
+      opacity: 0.5;
+      pointer-events: none;
+      transition: 0.2s;
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 3rem;
+      border: none;
+      font-size: 1rem;
+    }
+    .submit-btn.active {
+      opacity: 1;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 1rem;
+      margin: 1.8rem 0;
+    }
+    .action-tile {
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 1.5rem;
+      padding: 0.9rem 0.3rem;
+      text-align: center;
+      color: #e0f2e9;
+      font-weight: 600;
+      border: 1px solid rgba(46, 204, 113, 0.35);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .action-tile i {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 8px;
+      color: #2ECC71;
+    }
+    .balance-card {
+      background: linear-gradient(135deg, #111c1c, #081010);
+      border-radius: 1.8rem;
+      padding: 1.2rem;
+      text-align: center;
+      margin: 1rem 0;
+      border: 1px solid #2a5a3a;
+    }
+    .acc-number {
+      font-family: monospace;
+      letter-spacing: 2px;
+      background: #00000055;
+      display: inline-block;
+      padding: 0.3rem 1.2rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+    }
+    .history-item {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 1rem;
+      padding: 0.7rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.8rem;
+    }
+    hr {
+      border-color: #2a4a2a;
+      margin: 1rem 0;
+    }
+    .admin-floating {
+      position: fixed;
+      bottom: 1.2rem;
+      right: 1.2rem;
+      z-index: 200;
+    }
+    .admin-badge {
+      background: #0a1f1a;
+      border-radius: 3rem;
+      padding: 0.5rem 1.2rem;
+      color: #2ECC71;
+      border: 1px solid #2ECC71;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.75rem;
+      backdrop-filter: blur(4px);
+    }
+    @media (max-width: 550px) {
+      .glass-card { padding: 1.5rem; }
+      .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="appRoot" class="glass-card"></div>
+<div class="admin-floating" id="adminFloatBtn">
+  <div class="admin-badge" id="adminTriggerBtn"><i class="fas fa-shield-alt"></i> Admin Panel</div>
+</div>
+
+<script>
+  // ======================== STORAGE ========================
+  let allUsers = JSON.parse(localStorage.getItem('1trust_users')) || [];
+  let activeSession = JSON.parse(localStorage.getItem('1trust_session')) || null;
+  let adminAuditLog = JSON.parse(localStorage.getItem('admin_audit_log')) || [];
+
+  function generateAccountNumber() {
+    return '1T' + Math.floor(100000000 + Math.random() * 900000000).toString();
+  }
+
+  function persistUsers() {
+    localStorage.setItem('1trust_users', JSON.stringify(allUsers));
+  }
+
+  function persistSession() {
+    if (activeSession) localStorage.setItem('1trust_session', JSON.stringify(activeSession));
+    else localStorage.removeItem('1trust_session');
+  }
+
+  function addAuditEntry(adminId, targetUser, action, amount, refNote) {
+    adminAuditLog.unshift({
+      id: Date.now(),
+      adminId: adminId,
+      targetUser: targetUser,
+      action: action,
+      amount: amount,
+      reference: refNote,
+      timestamp: new Date().toLocaleString()
+    });
+    localStorage.setItem('admin_audit_log', JSON.stringify(adminAuditLog));
+  }
+
+  function getCurrentUser() {
+    if (!activeSession) return null;
+    return allUsers.find(u => u.id === activeSession.userId);
+  }
+
+  function addTransaction(userId, type, details, amount = 0, reference = '') {
+    const user = allUsers.find(u => u.id === userId);
+    if (!user) return;
+    const tx = {
+      id: Date.now(),
+      type: type,
+      details: details,
+      amount: amount,
+      reference: reference || `TX-${Math.floor(Math.random()*10000)}`,
+      timestamp: new Date().toLocaleString()
+    };
+    if (!user.transactions) user.transactions = [];
+    user.transactions.unshift(tx);
+    persistUsers();
+  }
+
+  // Complete A-Z Countries
+  const allCountries = [
+    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+    "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi",
+    "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic",
+    "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia",
+    "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana",
+    "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea North", "Korea South", "Kosovo", "Kuwait", "Kyrgyzstan",
+    "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar",
+    "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent", "Samoa", "San Marino", "Sao Tome", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
+    "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+  ];
+
+  // ======================== UI STATE ========================
+  let currentView = 'landing';
+  let pendingCountry = '';
+
+  const appRoot = document.getElementById('appRoot');
+
+  function render() {
+    if (currentView === 'landing') renderLanding();
+    else if (currentView === 'countryModal') renderCountryModal();
+    else if (currentView === 'signupForm') renderSignupForm();
+    else if (currentView === 'clientDash') renderClientDashboard();
+    else if (currentView === 'sendMoney') renderSendMoney();
+    else if (currentView === 'receiveMoney') renderReceiveMoney();
+    else if (currentView === 'sendAbroad') renderSendAbroad();
+    else if (currentView === 'payBills') renderPayBills();
+    else if (currentView === 'adminPanel') renderAdminPanel();
+  }
+
+  function navigateBack() {
+    if (currentView === 'clientDash') return;
+    if (currentView === 'sendMoney' || currentView === 'receiveMoney' || currentView === 'sendAbroad' || currentView === 'payBills') {
+      currentView = 'clientDash';
+      render();
+    } else if (currentView === 'signupForm') {
+      currentView = 'countryModal';
+      render();
+    } else if (currentView === 'countryModal') {
+      currentView = 'landing';
+      render();
+    } else if (currentView === 'adminPanel') {
+      currentView = (getCurrentUser() ? 'clientDash' : 'landing');
+      render();
+    } else {
+      currentView = 'landing';
+      render();
+    }
+  }
+
+  // ---------- LANDING PAGE with simple button labels ----------
+  function renderLanding() {
+    appRoot.innerHTML = `
+      <div style="text-align:center">
+        <div class="brand">1TRUST BANK</div>
+        <div style="text-align:center"><span class="tagline">Secure • Global • Reliable</span></div>
+        <div class="value-prop"><i class="fas fa-globe-americas"></i> Fast transfers, 24/7 access, worldwide banking</div>
+        <div class="btn-group">
+          <button id="createAccountBtn" class="btn btn-primary"><i class="fas fa-user-plus"></i> Create Account</button>
+          <button id="loginBtn" class="btn btn-outline"><i class="fas fa-sign-in-alt"></i> Login</button>
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.7rem; color:#8FBC8F;">✦ Your trusted financial partner ✦</div>
+      </div>
+    `;
+    document.getElementById('createAccountBtn')?.addEventListener('click', () => {
+      currentView = 'countryModal';
+      render();
+    });
+    document.getElementById('loginBtn')?.addEventListener('click', () => {
+      const phoneInput = prompt("Enter your phone number to login:");
+      if (phoneInput && phoneInput.trim()) {
+        const user = allUsers.find(u => u.phone === phoneInput.trim());
+        if (user) {
+          activeSession = { userId: user.id, name: user.fullName, accountNumber: user.accountNumber };
+          persistSession();
+          currentView = 'clientDash';
+          render();
+        } else {
+          alert("Account not found. Please create an account first.");
+        }
+      }
+    });
+  }
+
+  // Country selection
+  function renderCountryModal() {
+    appRoot.innerHTML = `
+      <button class="back-nav" id="backModalBtn"><i class="fas fa-arrow-left"></i> Back</button>
+      <h3 style="color:#ffffff;">Select Your Country</h3>
+      <div class="form-group">
+        <label>Country of Residence</label>
+        <select id="countrySelectModal">${allCountries.map(c => `<option value="${c}">${c}</option>`).join('')}</select>
+      </div>
+      <button id="proceedSignupBtn" class="btn btn-primary">Continue →</button>
+    `;
+    document.getElementById('backModalBtn')?.addEventListener('click', navigateBack);
+    document.getElementById('proceedSignupBtn')?.addEventListener('click', () => {
+      pendingCountry = document.getElementById('countrySelectModal').value;
+      currentView = 'signupForm';
+      render();
+    });
+  }
+
+  // Signup form
+  function renderSignupForm() {
+    appRoot.innerHTML = `
+      <button class="back-nav" id="backSignupNav"><i class="fas fa-arrow-left"></i> Back</button>
+      <h3 style="color:#fff;">Create Your Account</h3>
+      <div class="form-group"><label>Full Name</label><input id="fullName" placeholder="John Doe"></div>
+      <div class="form-group"><label>Email Address</label><input id="email" type="email" placeholder="john@example.com"></div>
+      <div class="form-group"><label>Date of Birth</label><input id="dob" type="date"></div>
+      <div class="form-group"><label>Phone Number</label><input id="phone" placeholder="+1234567890"></div>
+      <div class="form-group"><label>Photo ID (Passport/Driver's License)</label><input id="photoId" placeholder="ID Number"></div>
+      <button id="submitSignupFinal" class="submit-btn" disabled>Create Account</button>
+    `;
+    const required = ['fullName', 'email', 'dob', 'phone', 'photoId'];
+    function checkAllFields() {
+      const allFilled = required.every(id => {
+        const el = document.getElementById(id);
+        return el && el.value.trim() !== '';
+      });
+      const btn = document.getElementById('submitSignupFinal');
+      if (allFilled) {
+        btn.classList.add('active');
+        btn.disabled = false;
+      } else {
+        btn.classList.remove('active');
+        btn.disabled = true;
+      }
+    }
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', checkAllFields);
+    });
+    document.getElementById('backSignupNav')?.addEventListener('click', navigateBack);
+    document.getElementById('submitSignupFinal')?.addEventListener('click', () => {
+      const fullName = document.getElementById('fullName').value;
+      const email = document.getElementById('email').value;
+      const dob = document.getElementById('dob').value;
+      const phone = document.getElementById('phone').value;
+      const photoId = document.getElementById('photoId').value;
+      if (!fullName || !email || !dob || !phone || !photoId) return;
+      const newUser = {
+        id: Date.now(),
+        fullName: fullName,
+        email: email,
+        dob: dob,
+        phone: phone,
+        photoId: photoId,
+        country: pendingCountry,
+        accountNumber: generateAccountNumber(),
+        balance: 0.00,
+        transactions: []
+      };
+      allUsers.push(newUser);
+      persistUsers();
+      activeSession = { userId: newUser.id, name: newUser.fullName, accountNumber: newUser.accountNumber };
+      persistSession();
+      currentView = 'clientDash';
+      render();
+    });
+    checkAllFields();
+  }
+
+  // Client Dashboard
+  function renderClientDashboard() {
+    const user = getCurrentUser();
+    if (!user) { currentView = 'landing'; render(); return; }
+    appRoot.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <h2 style="color:white;">Welcome, ${user.fullName.split(' ')[0]}</h2>
+        <button id="logoutBtn" style="background:none; border:1px solid #6c6; border-radius:2rem; color:#ccc; padding:0.3rem 1rem; cursor:pointer;">Logout</button>
+      </div>
+      <div class="balance-card">
+        <div style="font-size:0.7rem; opacity:0.8;">Current Balance</div>
+        <div style="font-size:2.2rem; font-weight:800;">$${user.balance.toFixed(2)}</div>
+        <div class="acc-number"><i class="fas fa-credit-card"></i> ${user.accountNumber}</div>
+      </div>
+      <div class="dashboard-grid">
+        <div class="action-tile" id="sendMoneyTile"><i class="fas fa-paper-plane"></i> Send Money</div>
+        <div class="action-tile" id="receiveMoneyTile"><i class="fas fa-download"></i> Receive Money</div>
+        <div class="action-tile" id="sendAbroadTile"><i class="fas fa-globe"></i> Send Abroad</div>
+        <div class="action-tile" id="payBillsTile"><i class="fas fa-file-invoice-dollar"></i> Pay Bills</div>
+      </div>
+      <hr />
+      <div style="font-weight:600; color:#2ECC71;"><i class="fas fa-clock"></i> Transaction History</div>
+      <div id="historyContainer"></div>
+    `;
+    const histDiv = document.getElementById('historyContainer');
+    if (user.transactions && user.transactions.length > 0) {
+      user.transactions.slice(0, 6).forEach(tx => {
+        const el = document.createElement('div');
+        el.className = 'history-item';
+        el.innerHTML = `<strong>${tx.type}</strong> ${tx.details} <span style="float:right">${tx.amount ? `$${tx.amount}` : ''}</span><br/><small>${tx.timestamp} | Ref: ${tx.reference}</small>`;
+        histDiv.appendChild(el);
+      });
+    } else {
+      histDiv.innerHTML = '<div class="history-item"><i class="fas fa-chart-simple"></i> No transactions yet</div>';
+    }
+    document.getElementById('logoutBtn')?.addEventListener('click', () => { activeSession = null; persistSession(); currentView = 'landing'; render(); });
+    document.getElementById('sendMoneyTile')?.addEventListener('click', () => { currentView = 'sendMoney'; render(); });
+    document.getElementById('receiveMoneyTile')?.addEventListener('click', () => { currentView = 'receiveMoney'; render(); });
+    document.getElementById('sendAbroadTile')?.addEventListener('click', () => { currentView = 'sendAbroad'; render(); });
+    document.getElementById('payBillsTile')?.addEventListener('click', () => { currentView = 'payBills'; render(); });
+  }
+
+  // Send Money
+  function renderSendMoney() {
+    appRoot.innerHTML = `
+      <button class="back-nav" id="backSend"><i class="fas fa-arrow-left"></i> Back</button>
+      <h3 style="color:#fff;">Send Money</h3>
+      <div class="form-group"><label>Account Number</label><input id="accNum" placeholder="1TXXXXXXXXX"></div>
+      <div class="form-group"><label>Bank Name</label><input id="bankName" value="1TRUST BANK"></div>
+      <div class="form-group"><label>Receiver Name</label><input id="receiverName" placeholder="Full name"></div>
+      <div class="form-group"><label>Amount (USD)</label><input id="amountSend" type="number" step="0.01"></div>
+      <button id="confirmSendBtn" class="submit-btn" disabled>Confirm Transfer</button>
+    `;
+    const inputs = ['accNum', 'bankName', 'receiverName', 'amountSend'];
+    function checkValid() {
+      const all = inputs.every(id => {
+        const el = document.getElementById(id);
+        return el && el.value.trim() !== '';
+      });
+      const btn = document.getElementById('confirmSendBtn');
+      if (all) { btn.classList.add('active'); btn.disabled = false; }
+      else { btn.classList.remove('active'); btn.disabled = true; }
+    }
+    inputs.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', checkValid);
+    });
+    document.getElementById('confirmSendBtn')?.addEventListener('click', () => {
+      const user = getCurrentUser();
+      const amount = parseFloat(document.getElementById('amountSend').value);
+      const receiver = document.getElementById('receiverName').value;
+      if (user && !isNaN(amount)) addTransaction(user.id, "Send", `To ${receiver} (Activation needed)`, amount, "PENDING");
+      alert("Account activation required. Please contact support to complete this transfer.");
+      navigateBack();
+    });
+    document.getElementById('backSend')?.addEventListener('click', navigateBack);
+    checkValid();
+  }
+
+  // Receive Money
+  function renderReceiveMoney() {
+    const user = getCurrentUser();
+    appRoot.innerHTML = `
+      <button class="back-nav" id="backReceive"><i class="fas fa-arrow-left"></i> Back</button>
+      <div class="balance-card">
+        <i class="fas fa-qrcode" style="font-size:2rem; color:#2ECC71;"></i>
+        <div style="font-weight:bold; font-size:1.2rem; margin-top:8px;">${user?.fullName}</div>
+        <div class="acc-number" style="margin-top:8px;">${user?.accountNumber}</div>
+        <div style="margin-top:12px; font-size:0.75rem;">Bank: 1TRUST BANK | SWIFT: TRUSGB2L</div>
+      </div>
+    `;
+    document.getElementById('backReceive')?.addEventListener('click', navigateBack);
+  }
+
+  // Send Abroad
+  function renderSendAbroad() {
+    appRoot.innerHTML = `
+      <button class="back-nav" id="backAbroad"><i class="fas fa-arrow-left"></i> Back</button>
+      <h3 style="color:#fff;">International Transfer</h3>
+      <div class="form-group"><label>Destination Country</label><select id="countryAbroad">${allCountries.map(c=>`<option>${c}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Account Number</label><input id="intAccount" placeholder="IBAN / Account"></div>
+      <div class="form-group"><label>Bank Name</label><input id="intBank" placeholder="Bank name"></div>
+      <div class="form-group"><label>Receiver Name</label><input id="intReceiver" placeholder="Full name"></div>
+      <button id="confirmAbroadBtn" class="btn btn-primary" style="width:100%;">Send International</button>
+    `;
+    document.getElementById('confirmAbroadBtn')?.addEventListener('click', () => {
+      const user = getCurrentUser();
+      const receiver = document.getElementById('intReceiver')?.value || 'Unknown';
+      const country = document.getElementById('countryAbroad')?.value || 'Unknown';
+      if(user) addTransaction(user.id, "International", `To ${receiver} in ${country}`, 0, "Pending");
+      alert("International transfer request submitted. Please contact support for activation.");
+      navigateBack();
+    });
+    document.getElementById('backAbroad')?.addEventListener('click', navigateBack);
+  }
+
+  // Pay Bills
+  function renderPayBills() {
+    appRoot.innerHTML = `
+      <button class="back-nav" id="backBills"><i class="fas fa-arrow-left"></i> Back</button>
+      <div class="value-prop"><i class="fas fa-credit-card"></i> Apply for 1TRUST Bank Card</div>
+      <button id="applyCardBtn" class="btn btn-primary" style="width:100%;">Request New Card</button>
+    `;
+    document.getElementById('applyCardBtn')?.addEventListener('click', () => {
+      alert("Your card application has been submitted. Our team will contact you.");
+      navigateBack();
+    });
+    document.getElementById('backBills')?.addEventListener('click', navigateBack);
+  }
+
+  // ========== ADMIN PANEL ==========
+  let adminAuthenticated = false;
+  function renderAdminPanel() {
+    if (!adminAuthenticated) {
+      appRoot.innerHTML = `
+        <button class="back-nav" id="adminBackBtn"><i class="fas fa-arrow-left"></i> Back</button>
+        <h3 style="color:#fff;">Admin Login</h3>
+        <div class="form-group"><label>User ID</label><input id="adminUser" placeholder="08059422423"></div>
+        <div class="form-group"><label>Password</label><input id="adminPass" type="password"></div>
+        <button id="adminLoginBtn" class="btn btn-primary">Access Admin</button>
+      `;
+      document.getElementById('adminLoginBtn')?.addEventListener('click', () => {
+        const uid = document.getElementById('adminUser').value;
+        const pwd = document.getElementById('adminPass').value;
+        if (uid === '08059422423' && pwd === '08059422423') {
+          adminAuthenticated = true;
+          renderAdminPanel();
+        } else { alert("Invalid credentials."); }
+      });
+      document.getElementById('adminBackBtn')?.addEventListener('click', navigateBack);
+      return;
+    }
+    // Admin dashboard
+    appRoot.innerHTML = `
+      <button class="back-nav" id="exitAdminBtn"><i class="fas fa-sign-out-alt"></i> Exit Admin</button>
+      <h3 style="color:#2ECC71;"><i class="fas fa-users"></i> Client Management</h3>
+      <div id="adminUserListContainer" style="max-height:300px; overflow-y:auto; margin-bottom:1rem;"></div>
+      <div id="adminExecActions" style="background:#0a121a; border-radius:1.5rem; padding:1rem;"></div>
+    `;
+    const container = document.getElementById('adminUserListContainer');
+    if (allUsers.length === 0) {
+      container.innerHTML = '<div style="color:#aaa; padding:1rem; text-align:center;">No registered clients.</div>';
+    } else {
+      container.innerHTML = allUsers.map(u => `
+        <div style="background:#101c22; margin:0.5rem 0; padding:0.6rem; border-radius:1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+          <div><strong>${u.fullName}</strong><br/><span style="font-size:0.7rem;">${u.accountNumber} | $${u.balance.toFixed(2)}</span></div>
+          <button data-id="${u.id}" class="selectAdminUserBtn" style="background:#2ECC71; border:none; padding:0.4rem 1rem; border-radius:2rem; cursor:pointer;">Adjust Balance</button>
+        </div>
+      `).join('');
+    }
+    document.querySelectorAll('.selectAdminUserBtn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const userId = parseInt(btn.getAttribute('data-id'));
+        const targetUser = allUsers.find(u => u.id === userId);
+        if (!targetUser) return;
+        const actionDiv = document.getElementById('adminExecActions');
+        actionDiv.innerHTML = `
+          <h4 style="color:#fff;">Modify: ${targetUser.fullName}</h4>
+          <div class="form-group"><label>Amount (+/- USD)</label><input id="modAmount" type="number" step="0.01" placeholder="e.g., 500 or -200"></div>
+          <div class="form-group"><label>Reference Note</label><input id="refNote" placeholder="Transaction description"></div>
+          <button id="execModifyBtn" class="btn btn-primary">Execute</button>
+          <div id="execResult" style="margin-top:10px;"></div>
+        `;
+        document.getElementById('execModifyBtn')?.addEventListener('click', () => {
+          const amountMod = parseFloat(document.getElementById('modAmount').value);
+          const refText = document.getElementById('refNote').value || "Admin adjustment";
+          if (isNaN(amountMod)) { alert("Enter valid amount"); return; }
+          targetUser.balance += amountMod;
+          persistUsers();
+          const adjustmentType = amountMod >= 0 ? "Credit" : "Debit";
+          addTransaction(targetUser.id, "Admin", `${adjustmentType}: ${refText}`, amountMod, `ADMIN-${Date.now()}`);
+          addAuditEntry("admin", targetUser.fullName, `${adjustmentType} of ${Math.abs(amountMod)}`, amountMod, refText);
+          document.getElementById('execResult').innerHTML = `<span style="color:#2ECC71;">✓ Balance updated: $${targetUser.balance.toFixed(2)}</span>`;
+          setTimeout(() => { renderAdminPanel(); }, 800);
+        });
+      });
+    });
+    document.getElementById('exitAdminBtn')?.addEventListener('click', () => {
+      adminAuthenticated = false;
+      navigateBack();
+    });
+  }
+
+  // Admin button
+  const adminBtn = document.getElementById('adminTriggerBtn');
+  if (adminBtn) {
+    adminBtn.addEventListener('click', () => {
+      currentView = 'adminPanel';
+      adminAuthenticated = false;
+      render();
+    });
+  }
+
+  // Initialize
+  function initApp() {
+    if (activeSession && getCurrentUser()) currentView = 'clientDash';
+    else currentView = 'landing';
+    render();
+  }
+  initApp();
+</script>
+</body>
+</html>
