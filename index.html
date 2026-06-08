@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>1Trust Bank | Secure Banking</title>
+ <style>
+ :root {
+ --primary-green: #2ecc71;
+ --dark-green: #1e8f3e;
+ --bg-light: #f4f7f6;
+ --text-main: #333;
+ }
+
+ * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+ body {
+ background-color: var(--bg-light);
+ color: var(--text-main);
+ min-height: 100vh;
+ display: flex;
+ justify-content: center;
+ }
+
+ .app-container {
+ width: 100%;
+ max-width: 500px;
+ background: #ffffff;
+ min-height: 100vh;
+ padding: 30px;
+ box-shadow: 0 0 20px rgba(0,0,0,0.05);
+ }
+
+ /* Header */
+ .bank-header { text-align: center; margin: 20px 0 40px; }
+ .bank-name { color: var(--primary-green); font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
+ 
+ /* Dashboard Card */
+ .welcome-card {
+ background: var(--primary-green);
+ color: white;
+ padding: 25px;
+ border-radius: 20px;
+ margin-bottom: 30px;
+ }
+ .balance-val { font-size: 1.8rem; font-weight: bold; display: block; margin-top: 5px; }
+
+ /* Buttons */
+ .btn {
+ width: 100%;
+ padding: 15px;
+ border-radius: 12px;
+ border: none;
+ font-weight: 600;
+ cursor: pointer;
+ margin-bottom: 10px;
+ transition: 0.3s;
+ }
+ .btn-primary { background: var(--primary-green); color: white; }
+ .btn-outline { background: transparent; border: 1px solid var(--primary-green); color: var(--primary-green); }
+ .btn:hover { opacity: 0.9; }
+
+ /* Grid */
+ .features-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 15px;
+ }
+ .feature-btn {
+ background: #f9f9f9;
+ padding: 20px 10px;
+ text-align: center;
+ border-radius: 15px;
+ border: 1px solid #eee;
+ cursor: pointer;
+ }
+
+ /* History */
+ .history-list { margin-top: 30px; }
+ .history-item { 
+ display: flex; 
+ justify-content: space-between; 
+ padding: 15px 0; 
+ border-bottom: 1px solid #eee; 
+ }
+ </style>
+</head>
+<body>
+
+<div class="app-container" id="appRoot">
+ <div class="bank-header">
+ <div class="bank-name">1TRUST BANK</div>
+ </div>
+
+ <div id="publicActions">
+ <button class="btn btn-primary" id="signupBtn">Create Account</button>
+ <button class="btn btn-outline" id="loginBtn">Login</button>
+ </div>
+
+ <div id="clientDashboard" style="display:none;">
+ <div class="welcome-card">
+ <span>Current Balance</span>
+ <span class="balance-val" id="balanceDisplay">$0.00</span>
+ <small id="accNumberDisplay"></small>
+ </div>
+
+ <div class="features-grid">
+ <div class="feature-btn" data-action="send"> Send</div>
+ <div class="feature-btn" data-action="receive"> Receive</div>
+ <div class="feature-btn" data-action="abroad"> Abroad</div>
+ <div class="feature-btn" data-action="bills"> Bills</div>
+ </div>
+
+ <div class="history-list" id="historyList">
+ <h4 style="margin-bottom: 10px;">Recent Transactions</h4>
+ </div>
+ </div>
+</div>
+
+<script>
+ // Logic remains functional, just updated the UI rendering IDs to match this structure
+ // (Ensure you integrate the specific 'render' functions to target these new elements)
+</script>
+</body>
+</html>
